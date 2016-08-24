@@ -1,0 +1,58 @@
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+main {
+  padding: 48px 8px 8px;
+}
+
+h3 a {
+  color: white;
+  text-decoration: none;
+}
+.relative {
+  position: relative;
+}
+.block {
+  display: block;
+}
+.order-details {
+  border-spacing: 10px;
+}
+.order-details th {
+  text-align: right;
+}
+#orders .mdl-button--fab {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  z-index: 999;
+}
+.error {
+  background-color: #d50000;
+}
+
+/*Event card */
+
+ .demo-card-event.mdl-card {
+   /*width: 400px;*/
+   /*height: 256px;*/
+   background: #3E4EB8;
+ }
+.demo-card-event > .mdl-card__actions {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.demo-card-event > .mdl-card__title {
+  align-items: flex-start;
+}
+
+.demo-card-event > .mdl-card__title,
+.demo-card-event > .mdl-card__actions,
+.demo-card-event > .mdl-card__actions > .mdl-button {
+  color: #fff;
+}
+
+.mdl-card--expand > ul > li{
+  color: #fff;
+}

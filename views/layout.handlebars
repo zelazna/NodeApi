@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <title>Customer List System</title>
+
+    <!-- Material Design Lite -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+    <!-- Local Assets -->
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/script.js"></script>
+
+    <!-- Google Sign-in library -->
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/spreadsheets">
+    <meta name="google-signin-client_id" content="749289055137-ad97uas8mq90u7ng6s1efp06rdim791b.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row"></div>
+        <div class="mdl-layout__header-row">
+            <h3><a href="/">Customer System</a></h3>
+            <div class="mdl-layout-spacer"></div>
+            <div id="spinner" class="mdl-spinner mdl-js-spinner"></div>
+            <!-- Google Sign-in button -->
+            <div id="profile" style="margin: 0 20px;">
+                <b class="name"></b><br/>
+                <i class="email"></i>
+            </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+        <div class="mdl-layout--large-screen-only mdl-layout__header-row"></div>
+    </header>
+    <main class="mdl-layout__content">
+        {{{body}}}
+    </main>
+    <div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<div class="mdl-grid">
+    <section class="mdl-cell mdl-cell--8-col">
+        <table class="mdl-data-table mdl-js-data-table ">
+            <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric">FirstName</th>
+                <th class="mdl-data-table__cell--non-numeric">LastName</th>
+                <th class="mdl-data-table__cell--non-numeric">Nat</th>
+                <th class="mdl-data-table__cell--non-numeric">Mail</th>
+                <th class="mdl-data-table__cell--non-numeric">Status</th>
+                <th class="mdl-data-table__cell--non-numeric">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each orders}}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{nationalite}}</td>
+                    <td>{{mail}}</td>
+                    <td>{{status}}</td>
+                    <td>
+                        <a style="color:grey" href="/edit/{{id}}"><i class="material-icons">edit</i></a>
+                        <a style="color:grey" href="/delete/{{id}}"><i class="material-icons">delete</i></a>
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+        <br>
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" href="/create">
+            <i class="material-icons" role="presentation">add</i>
+            <span class="visuallyhidden">Add</span>
+        </a>
+    </section>
+  <!-- Show spreadsheets -->
+  <section id="spreadsheets" class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-list">
+      <div class="mdl-list__item">
+        <span class="mdl-list__item-primary-content mdl-layout-title">
+          Spreadsheets</span>
+        <span class="mdl-list__item-secondary-action">
+          <button class="mdl-button mdl-js-button mdl-button--raised
+                         mdl-js-ripple-effect mdl-button--colored"
+                  rel="create" type="button">Create</button>
+        </span>
+            </div>
+            {{#each spreadsheets}}
+                <div class="mdl-list__item">
+                    <a class="mdl-list__item-primary-content" href="https://docs.google.com/spreadsheets/d/{{id}}/edit" target="_blank">{{name}}</a>
+                    <span class="mdl-list__item-secondary-action">
+          <button class="mdl-button mdl-js-button mdl-button--raised
+                         mdl-js-ripple-effect"
+                  rel="sync" data-spreadsheetid="{{id}}"
+                  type="button">Sync</button>
+        </span>
+                </div>
+            {{/each}}
+        </div>
+    </section>
+
+</div>
