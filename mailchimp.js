@@ -1,5 +1,6 @@
 var http = require('http');
-const listId = '5ff33b4075';
+var config = require('./config');
+console.log(config.apiKey);
 /**
  * Add a new suscriber to mailchimp list.
  * @param  {string} firstName  the firstName of the customer.
@@ -20,10 +21,10 @@ var MailchimpHelper = function addSuscriber(firstName, lastName, language, email
 
     var options = {
         host: 'us6.api.mailchimp.com',
-        path: `/3.0/lists/${listId}/members`,
+        path: `/3.0/lists/${config.listId}/members`,
         method: 'POST',
         headers: {
-            'Authorization': 'randomUser 3f3cb939eb0bfc93b5fb936a254f8536-us6',
+            'Authorization': `randomUser ${config.apiKey}`,
             'Content-Type': 'application/json',
             'Content-Length': subscriber.length
         }
