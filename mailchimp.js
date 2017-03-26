@@ -1,6 +1,6 @@
 var http = require('http');
 var config = require('./config');
-console.log(config.apiKey);
+
 /**
  * Add a new suscriber to mailchimp list.
  * @param  {string} firstName  the firstName of the customer.

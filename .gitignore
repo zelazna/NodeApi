@@ -41,4 +41,5 @@ jspm_packages
 .idea
 
 db.sqlite
+config.json
 
