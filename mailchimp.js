@@ -1,5 +1,8 @@
+'use strict';
+
 var http = require('http');
-var config = require('./config');
+var path = require('path');
+var config = require(path.join(__dirname, './config.json')).mailchimp;
 
 /**
  * Add a new suscriber to mailchimp list.
@@ -9,6 +12,7 @@ var config = require('./config');
  * @param  {string} email  the email of the customer.
  */
 var MailchimpHelper = function addSuscriber(firstName, lastName, language, email) {
+
     var subscriber = JSON.stringify({
         "email_address": email,
         "status": "subscribed",
@@ -20,7 +24,7 @@ var MailchimpHelper = function addSuscriber(firstName, lastName, language, email
     });
 
     var options = {
-        host: 'us6.api.mailchimp.com',
+        host: config.host,
         path: `/3.0/lists/${config.listId}/members`,
         method: 'POST',
         headers: {
