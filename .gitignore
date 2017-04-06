@@ -45,3 +45,6 @@ jspm_packages
 # config
 config.json
 
+# sqlite
+db.sqlite
+
