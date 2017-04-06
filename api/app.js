@@ -1,15 +1,14 @@
-const express = require('express');
-const path = require('path');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
+const express = require('express')
+const logger = require('morgan')
+const bodyParser = require('body-parser')
 
-const routes = require('./routes');
+const routes = require('./routes')
 
-const expressApp = express();
+const expressApp = express()
 
-expressApp.use(logger('dev'));
-expressApp.use(bodyParser.json());
-expressApp.use(bodyParser.urlencoded({ extended: false }));
-expressApp.use('/', routes);
+expressApp.use(logger('dev'))
+expressApp.use(bodyParser.json())
+expressApp.use(bodyParser.urlencoded({ extended: false }))
+expressApp.use('/', routes)
 
-module.exports = expressApp;
+module.exports = expressApp
