@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       lastName: { type: DataTypes.STRING, allowNull: false },
       nationalite: { type: DataTypes.STRING, allowNull: false },
       mail: { type: DataTypes.STRING, allowNull: false },
-      status: { type: DataTypes.STRING, allowNull: false, defaultValue: 'PENDING' },
-    });
+      status: { type: DataTypes.STRING, allowNull: false, defaultValue: 'PENDING' }
+    })
 
-  return CustomerList;
-};
+  return CustomerList
+}

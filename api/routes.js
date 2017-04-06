@@ -1,39 +1,45 @@
-const express = require('express');
-const Sequelize = require('sequelize');
+const express = require('express')
+const Sequelize = require('sequelize')
 
-const router = express.Router();
-const collections = require('../db/collections');
+const router = express.Router()
+const collections = require('../db/collections')
+
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
 
 router.post('/', (req, res, next) => {
   const options = {
-    order: [['createdAt', 'DESC']],
-  };
+    order: [['createdAt', 'DESC']]
+  }
   Sequelize.Promise.all([
-    collections.CustomerList.findAll(options),
+    collections.CustomerList.findAll(options)
   ]).then(results => {
-    res.send(results[0]);
+    res.send(results[0])
   }, err => {
-    next(err);
-  });
-});
+    next(err)
+  })
+})
 
 router.patch('/', (req, res, next) => {
   collections.CustomerList.upsert(req.body)
     .then(() => {
-      res.send('ok');
+      res.send('ok')
     }, err => {
-      next(err);
-    });
-});
+      next(err)
+    })
+})
 
 router.delete('/', (req, res, next) => {
   collections.CustomerList.findById(req.body.id)
     .then(customer => {
-      customer.destroy();
-      res.send('ok');
+      customer.destroy()
+      res.send('ok')
     }, err => {
-      next(err);
+      next(err)
     })
-});
+})
 
-module.exports = router;
+module.exports = router

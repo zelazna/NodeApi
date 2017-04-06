@@ -1,7 +1,8 @@
-##SheetsApi & Mailchimp Sync
+# Customers List & Mailchimp Sync
 
-Based on Google Codelab Sheets API
+* Sequelize ORM
+* Express for REST API
 
-####TODO
-* build an desktop Electron App
+# WIP
+
 
