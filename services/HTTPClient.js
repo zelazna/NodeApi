@@ -19,10 +19,7 @@ class HTTPCLient {
       hostname: this.baseUrl,
       path: path,
       method: method,
-      headers: headers || {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(this.params)
-      }
+      headers: this._setHeaders(headers, params)
     }
     this.req = http.request(this.options, res => {
       console.log(`STATUS CODE: ${res.statusCode}`)
@@ -38,6 +35,19 @@ class HTTPCLient {
     })
     this.req.write(params)
     this.req.end()
+  }
+  _setHeaders (headers, params) {
+    let defaultHeaders = {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(this.params)
+    }
+    if (headers) {
+      for (var header in headers) {
+        defaultHeaders[header] = headers[header]
+      }
+    }
+
+    return headers
   }
 }
 
