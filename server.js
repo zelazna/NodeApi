@@ -1,108 +1,91 @@
 #!/usr/bin/env node
 
-/*
-  Copyright 2016 Google, Inc.
+/**
+ * load environment variables.
+ */
 
-  Licensed to the Apache Software Foundation (ASF) under one or more contributor
-  license agreements. See the NOTICE file distributed with this work for
-  additional information regarding copyright ownership. The ASF licenses this
-  file to you under the Apache License, Version 2.0 (the "License"); you may not
-  use this file except in compliance with the License. You may obtain a copy of
-  the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-  License for the specific language governing permissions and limitations under
-  the License.
-*/
-
-'use strict';
+require('./config/environment')
 
 /**
  * Module dependencies.
  */
 
-var app = require('./app');
-var http = require('http');
-var models = require('./models');
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+const app = require('./api/app')
+const http = require('http')
+const models = require('./db/collections')
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app)
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+const port = normalizePort(process.env.PORT || '3000')
+app.set('port', port)
 
 /**
  * Load the models.
  */
-models.sequelize.sync().then(function() {
+models.sequelize.sync().then(() => {
   /**
    * Listen on provided port, on all network interfaces.
    */
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
-});
-
-/**
- * Normalize a port into a number, string, or false.
- */
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
+  server.listen(port)
+  server.on('error', onError)
+  server.on('listening', onListening)
+})
 
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError(error) {
+function onError (error) {
   if (error.syscall !== 'listen') {
-    throw error;
+    throw error
   }
 
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
+      console.error(`${bind} requires elevated privileges`)
+      process.exit(1)
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
+      console.error(`${bind} is already in use`)
+      process.exit(1)
     default:
-      throw error;
+      throw error
   }
 }
 
 /**
  * Event listener for HTTP server "listening" event.
  */
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
+function onListening () {
+  const addr = server.address()
+  const bind = typeof addr === 'string' ? `pipe ${addr}` : addr.port
+  console.log(`Listening on http://localhost:${bind}`)
+}
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort (val) {
+  const portToNormalize = parseInt(val, 10)
+
+  if (isNaN(portToNormalize)) {
+    // named pipe
+    return val
+  }
+
+  if (portToNormalize >= 0) {
+    // port number
+    return portToNormalize
+  }
+
+  return false
 }

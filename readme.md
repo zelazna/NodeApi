@@ -1,7 +1,17 @@
-##SheetsApi & Mailchimp Sync
+# Customers List & Mailchimp Sync
 
-Based on Google Codelab Sheets API
+* Sequelize
+* Express
 
-####TODO
-* build an desktop Electron App
+### Commands
 
+- debug the application
+```
+$ DEBUG=express* node index.js
+```
+- lint files
+```
+$ ./node_modules/.bin/eslint --fix --no-ignore filename
+```
+
+# WIP
