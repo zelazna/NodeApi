@@ -10,9 +10,10 @@ router.use((req, res, next) => {
   next()
 })
 
-router.post('/', (req, res, next) => {
+router.get('/customers', (req, res, next) => {
   const options = {
-    order: [['createdAt', 'DESC']]
+    order: [['createdAt', 'DESC']],
+    limit: req.query.limit || process.env.QUERY_LIMIT
   }
   Sequelize.Promise.all([
     collections.CustomerList.findAll(options)
@@ -23,7 +24,31 @@ router.post('/', (req, res, next) => {
   })
 })
 
-router.patch('/', (req, res, next) => {
+router.get('/customers/:id', (req, res, next) => {
+  const options = {
+    order: [['createdAt', 'DESC']],
+    limit: req.query.limit || process.env.QUERY_LIMIT
+  }
+  options.where = req.params
+  Sequelize.Promise.all([
+    collections.CustomerList.findAll(options)
+  ]).then(results => {
+    res.send(results[0])
+  }, err => {
+    next(err)
+  })
+})
+
+router.post('/customers', (req, res, next) => {
+  collections.CustomerList.create(req.body)
+    .then(() => {
+      res.send('ok')
+    }, err => {
+      next(err)
+    })
+})
+
+router.put('/customers', (req, res, next) => {
   collections.CustomerList.upsert(req.body)
     .then(() => {
       res.send('ok')
@@ -32,7 +57,7 @@ router.patch('/', (req, res, next) => {
     })
 })
 
-router.delete('/', (req, res, next) => {
+router.delete('/customers', (req, res, next) => {
   collections.CustomerList.findById(req.body.id)
     .then(customer => {
       customer.destroy()

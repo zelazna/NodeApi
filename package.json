@@ -9,7 +9,8 @@
   },
   "repository": "https://github.com/googlecodelabs/sheets-api",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "ENVIROMNENT=DEVELOPMENT nodemon server.js",
+    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text mocha ./test/**/*.spec.js"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -21,16 +22,15 @@
     "sequelize": "^3.30.3"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^4.2.2",
+    "eslint-config-standard": "^10.2.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^2.2.0",
-    "jasmine-core": "^2.5.2",
-    "karma": "^1.6.0",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-jasmine": "^1.1.0",
-    "nodemon": "^1.11.0"
+    "eslint-plugin-standard": "^3.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^10.2.0",
+    "sinon": "^2.1.0"
   }
 }

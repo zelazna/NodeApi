@@ -14,29 +14,26 @@ class HTTPCLient {
     return this._sendRequest('DELETE', path, params, headers)
   }
   _sendRequest (method, path, params, headers) {
-    this.params = JSON.stringify(params)
-    this.options = {
-      hostname: this.baseUrl,
-      path: path,
-      method: method,
-      headers: this._setHeaders(headers, params)
-    }
-    this.req = http.request(this.options, res => {
-      console.log(`STATUS CODE: ${res.statusCode}`)
-      console.log(`HEADERS: ${JSON.stringify(res.headers)}`)
-      res.setEncoding('utf8')
-      res.on('data', chunk => {
-        console.log(`BODY: ${chunk}`)
+    return new Promise((resolve, reject) => {
+      this.params = JSON.stringify(params)
+      this.options = {
+        hostname: this.baseUrl,
+        path: path,
+        method: method,
+        headers: method === 'GET' ? null : this._setHeaders(headers, this.params)
+      }
+      this.req = http.request(this.options, res => {
+        res.setEncoding('utf8')
+        const body = []
+        res.on('data', (chunk) => body.push(chunk))
+        res.on('end', () => resolve(body.join('')))
       })
-      res.on('end', () => {
-        console.log('No more data in response.')
-      })
-      res.on('error', e => console.log(`ERROR: ' ${e.message}`))
+      this.req.on('error', err => reject(err))
+      this.req.write(this.params)
+      this.req.end()
     })
-    this.req.write(params)
-    this.req.end()
   }
-  _setHeaders (headers, params) {
+  _setHeaders (headers) {
     let defaultHeaders = {
       'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(this.params)
@@ -46,8 +43,7 @@ class HTTPCLient {
         defaultHeaders[header] = headers[header]
       }
     }
-
-    return headers
+    return defaultHeaders
   }
 }
 
