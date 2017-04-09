@@ -43,7 +43,7 @@ jspm_packages
 .idea
 
 # config
-config.json
+!.sample.env
 
 # sqlite
 db.sqlite
