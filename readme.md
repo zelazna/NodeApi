@@ -1,18 +1,31 @@
-# Customers List & Mailchimp Sync
+# Customers List & Mailchimp Sync # WIP
 [![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=master)](https://travis-ci.org/zelazna/NodeApi)
-[![Eslint Style](https://img.shields.io/badge/code_style-standard-brightgreen.svg")](https://standardjs.com)
+
 * Sequelize
 * Express
+* Mocha & Chai
 
 ### Commands
 
-- debug the application
+run the API ( rely on nodemon for now)
+```
+$ npm test
+```
+launch tests (generate code coverage with istanbul as well )
+```
+$ npm test
+```
+debug the application
 ```
 $ DEBUG=express* node index.js
 ```
-- lint files
+lint files
 ```
 $ ./node_modules/.bin/eslint --fix --no-ignore filename
 ```
 
-# WIP
+### TODO
+
+* basic Auth & tokens managment with redis
+* externalize MailchimpClient
+* complete tests
