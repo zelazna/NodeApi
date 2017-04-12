@@ -1,19 +1,20 @@
 const HttpClient = require('../../services/HTTPClient')
 const expect = require('chai').expect
 const sinon = require('sinon')
-let client, http, options = {
+let client
+let http
+let options = {
   uri: 'http://localhost/customers',
   json: true,
   body: { test: 'test' }
 }
 
 beforeEach(() => {
-  http = sinon.spy();
+  http = sinon.spy()
   client = new HttpClient('http://localhost', http)
 })
 
 describe('HttpClient', () => {
-
   describe('#constructor()', () => {
     it('should have the correct values', () => {
       expect(client.baseUrl).to.equal('http://localhost')
@@ -26,7 +27,7 @@ describe('HttpClient', () => {
       client.get('/customers')
       options.method = 'GET'
       options.body = undefined
-      expect(http.calledWith(options)).to.be.true;
+      expect(http.calledWith(options)).to.be.true
     })
   })
 
@@ -34,8 +35,7 @@ describe('HttpClient', () => {
     it('should call _sendRequest with the right params', () => {
       client.delete('/customers', options.body)
       options.method = 'DELETE'
-      expect(http.calledWith(options)).to.be.true;
-
+      expect(http.calledWith(options)).to.be.true
     })
   })
 
@@ -43,7 +43,7 @@ describe('HttpClient', () => {
     it('should call _sendRequest with the right params', () => {
       client.post('/customers', options.body)
       options.method = 'POST'
-      expect(http.calledWith(options)).to.be.true;
+      expect(http.calledWith(options)).to.be.true
     })
   })
 
@@ -51,8 +51,7 @@ describe('HttpClient', () => {
     it('should call _sendRequest with the right params', () => {
       client.patch('/customers', options.body)
       options.method = 'PATCH'
-      expect(http.calledWith(options)).to.be.true;
+      expect(http.calledWith(options)).to.be.true
     })
   })
 })
-
