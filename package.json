@@ -10,7 +10,7 @@
   "repository": "https://github.com/googlecodelabs/sheets-api",
   "scripts": {
     "start": "ENVIROMNENT=DEVELOPMENT nodemon server.js",
-    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text mocha ./test/**/*.spec.js"
+    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -19,12 +19,15 @@
     "morgan": "^1.8.1",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0",
     "sequelize": "^3.30.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
+    "eslint-plugin-chai-friendly": "^0.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",

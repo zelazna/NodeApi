@@ -2,13 +2,12 @@ const express = require('express')
 const Sequelize = require('sequelize')
 
 const router = express.Router()
-const collections = require('../db/collections')
+const collections = require('../../db/collections')
+const middlewares = require('../middlewares')
 
-router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
+const { cors } = middlewares
+
+router.use(cors)
 
 router.get('/customers', (req, res, next) => {
   const options = {
