@@ -10,7 +10,7 @@
   "repository": "https://github.com/googlecodelabs/sheets-api",
   "scripts": {
     "start": "ENVIROMNENT=DEVELOPMENT nodemon server.js",
-    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text mocha ./test/**/*.spec.js"
+    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

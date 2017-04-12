@@ -1,31 +1,26 @@
-var expect = require('chai').expect
-var sinon = require('sinon')
+const expect = require('chai').expect
+const sinon = require('sinon')
 
 const cors = require('../../../api/middlewares/cors')
+const RequestMock = require('../../mocks/responseMock')
 
-describe('my middleware', function () {
-  describe('request handler creation', function () {
-    var mw
-
-    beforeEach(function () {
-      mw = middleware(/./)
+describe('cors middleware', () => {
+  describe('request handler creation', () => {
+    it('should return a function()', () => {
+      expect(cors).to.be.a.Function
     })
 
-    it('should return a function()', function () {
-      expect(mw).to.be.a.Function
-    })
-
-    it('should accept three arguments', function () {
-      expect(mw.length).to.equal(3)
+    it('should accept three arguments', () => {
+      expect(cors.length).to.equal(3)
     })
   })
 
-  describe('request handler calling', function () {
-    it('should call next() once', function () {
-      var mw = middleware(/./)
-      var nextSpy = sinon.spy()
-
-      mw({}, {}, nextSpy)
+  describe('request handler calling', () => {
+    it('should call next() once', () => {
+      const nextSpy = sinon.spy()
+      const res = new RequestMock()
+      cors({}, res, nextSpy)
+      expect(res.calledWith.length).to.equal(4)
       expect(nextSpy.calledOnce).to.be.true
     })
   })
