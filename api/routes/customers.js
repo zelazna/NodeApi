@@ -4,18 +4,19 @@ const Sequelize = require('sequelize')
 const router = express.Router()
 const collections = require('../../db/collections')
 const middlewares = require('../middlewares')
+const CustomersList = collections.CustomerList
 
 const { cors } = middlewares
 
 router.use(cors)
 
 router.get('/customers', (req, res, next) => {
-  const options = {
+  let options = {
     order: [['createdAt', 'DESC']],
     limit: req.query.limit || process.env.QUERY_LIMIT
   }
   Sequelize.Promise.all([
-    collections.CustomerList.findAll(options)
+    CustomersList.findAll(options)
   ]).then(results => {
     res.send(results[0])
   }, err => {
@@ -25,18 +26,17 @@ router.get('/customers', (req, res, next) => {
 
 router.get('/customers/:id', (req, res, next) => {
   Sequelize.Promise.props({
-    customer: collections.CustomerList.findOne({
-      where: req.params
-    })
-  }).then(result => {
-    res.send(result.customer.dataValues)
-  }, err => {
-    next(err)
+    customer: CustomersList.findById(req.params.id)
   })
+    .then(result => {
+      res.send(result.customer.dataValues)
+    }, err => {
+      next(err)
+    })
 })
 
 router.post('/customers', (req, res, next) => {
-  collections.CustomerList.create(req.body)
+  CustomersList.create(req.body)
     .then(customer => {
       res.send(customer)
     }, err => {
@@ -45,18 +45,22 @@ router.post('/customers', (req, res, next) => {
 })
 
 router.put('/customers', (req, res, next) => {
-  collections.CustomerList.upsert(req.body)
-    .then(customer => {
-      res.send(customer)
+  let options = {
+    where: { id: req.body.id }
+  }
+  CustomersList.update(req.body, options)
+    .then(result => {
+      res.sendStatus(200)
     }, err => {
       next(err)
     })
 })
 
 router.delete('/customers', (req, res, next) => {
-  collections.CustomerList.findById(req.body.id)
+  CustomersList.findById(req.body.id)
     .then(customer => {
       customer.destroy()
+      res.sendStatus(200)
     }, err => {
       next(err)
     })

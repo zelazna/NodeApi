@@ -3,15 +3,20 @@ const path = require('path')
 
 const currentDirectory = path.dirname(__filename)
 const resourcesDirectory = path.join(currentDirectory, '..', 'resources')
+const rootDirectory = path.join(currentDirectory, '../../')
 
-function resourcePath (filePath) {
+const resourcePath = filePath => {
   return path.join(resourcesDirectory, filePath)
 }
 
-function loadJsonResource (filePath) {
+const loadJsonResource = filePath => {
   const file = resourcePath(filePath)
   const data = fs.readFileSync(file, 'utf8')
   return JSON.parse(data)
 }
 
-module.exports = loadJsonResource
+
+module.exports = {
+  loadJsonResource,
+  rootDirectory
+}
