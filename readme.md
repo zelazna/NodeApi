@@ -1,9 +1,13 @@
 # Customers List & Mailchimp Sync # WIP
-[![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=master)](https://travis-ci.org/zelazna/NodeApi)
+[![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=develop)](https://travis-ci.org/zelazna/NodeApi)
 
 * Sequelize
 * Express
 * Mocha & Chai
+
+### EndPoints
+
+WIP
 
 ### Commands
 

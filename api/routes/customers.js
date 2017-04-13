@@ -24,15 +24,12 @@ router.get('/customers', (req, res, next) => {
 })
 
 router.get('/customers/:id', (req, res, next) => {
-  const options = {
-    order: [['createdAt', 'DESC']],
-    limit: req.query.limit || process.env.QUERY_LIMIT
-  }
-  options.where = req.params
-  Sequelize.Promise.all([
-    collections.CustomerList.findAll(options)
-  ]).then(results => {
-    res.send(results[0])
+  Sequelize.Promise.props({
+    customer: collections.CustomerList.findOne({
+      where: req.params
+    })
+  }).then(result => {
+    res.send(result.customer.dataValues)
   }, err => {
     next(err)
   })
@@ -40,8 +37,8 @@ router.get('/customers/:id', (req, res, next) => {
 
 router.post('/customers', (req, res, next) => {
   collections.CustomerList.create(req.body)
-    .then(() => {
-      res.send('ok')
+    .then(customer => {
+      res.send(customer)
     }, err => {
       next(err)
     })
@@ -49,8 +46,8 @@ router.post('/customers', (req, res, next) => {
 
 router.put('/customers', (req, res, next) => {
   collections.CustomerList.upsert(req.body)
-    .then(() => {
-      res.send('ok')
+    .then(customer => {
+      res.send(customer)
     }, err => {
       next(err)
     })
@@ -60,7 +57,6 @@ router.delete('/customers', (req, res, next) => {
   collections.CustomerList.findById(req.body.id)
     .then(customer => {
       customer.destroy()
-      res.send('ok')
     }, err => {
       next(err)
     })
