@@ -3,4 +3,5 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database customers_test;' -U postgres
+  - psql -U postgres customers_test -c 'CREATE TABLE "CustomerLists";'
 
