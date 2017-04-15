@@ -2,6 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const Sequelize = require('sequelize')
 
+// load environment variables.
+require('../../config/environment')
+
 const basename = path.basename(module.filename)
 const db = {}
 
@@ -11,7 +14,8 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST || 'localhost',
-    dialect: process.env.DB_DIALECT
+    dialect: process.env.DB_DIALECT,
+    logging: false
   }
 )
 
