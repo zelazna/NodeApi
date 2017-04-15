@@ -10,6 +10,7 @@ const expect = chai.expect
 
 describe('CustomersRouter', () => {
   before(() => {
+    CustomersList.sync()
     const testObject = {
       'firstName': 'paginate',
       'id': 1,
