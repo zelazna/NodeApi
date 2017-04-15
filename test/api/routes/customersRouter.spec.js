@@ -8,24 +8,24 @@ const CustomersList = Sequelize.CustomerList
 chai.use(chaiHttp)
 const expect = chai.expect
 
+beforeEach(() => {
+  CustomersList.sync()
+  const testObject = {
+    'firstName': 'paginate',
+    'id': 1,
+    'lastName': 'yolo0à0à00sss',
+    'mail': 'constantin.ddguidon@gmail.com',
+    'nationalite': 'de',
+    'status': 'DONE'
+  }
+  CustomersList.build(testObject).save()
+})
+
+afterEach(() => {
+  CustomersList.truncate()
+})
+
 describe('CustomersRouter', () => {
-  beforeEach(() => {
-    CustomersList.sync()
-    const testObject = {
-      'firstName': 'paginate',
-      'id': 1,
-      'lastName': 'yolo0à0à00sss',
-      'mail': 'constantin.ddguidon@gmail.com',
-      'nationalite': 'de',
-      'status': 'DONE'
-    }
-    CustomersList.build(testObject).save()
-  })
-
-  afterEach(() => {
-    CustomersList.truncate()
-  })
-
   describe('GET /customers', () => {
     it('should be json', () => {
       return chai.request(app).get('/customers')
