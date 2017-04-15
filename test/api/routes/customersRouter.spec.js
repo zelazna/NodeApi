@@ -9,7 +9,7 @@ chai.use(chaiHttp)
 const expect = chai.expect
 
 describe('CustomersRouter', () => {
-  before(() => {
+  beforeEach(() => {
     CustomersList.sync()
     const testObject = {
       'firstName': 'paginate',
@@ -19,10 +19,10 @@ describe('CustomersRouter', () => {
       'nationalite': 'de',
       'status': 'DONE'
     }
-    CustomersList.create(testObject)
+    CustomersList.build(testObject).save()
   })
 
-  after(() => {
+  afterEach(() => {
     CustomersList.truncate()
   })
 
@@ -42,7 +42,7 @@ describe('CustomersRouter', () => {
   })
 
   describe('GET /customers/:id', () => {
-    it('should a customer object', () => {
+    it('should be a customer object', () => {
       return chai.request(app).get('/customers/1')
         .then(res => {
           const customer = JSON.parse(res.text).customer
@@ -70,11 +70,11 @@ describe('CustomersRouter', () => {
           expect(customer.firstName).to.eql('constantin')
         })
     })
-    it('should have 2 customers in the database', () => {
+    it('should have 1 customer in the database', () => {
       CustomersList
         .findAndCountAll()
         .then(result => {
-          expect(result.count).to.eql(2)
+          expect(result.count).to.eql(1)
         })
     })
   })
@@ -93,12 +93,10 @@ describe('CustomersRouter', () => {
         .send(obj)
         .then(res => {
           expect(res.status).to.be.eql(200)
+          CustomersList.findById(1).then(customer => {
+            expect(customer.dataValues.firstName).to.be.eql('constantinUpdate')
+          })
         })
-    })
-    it('should update the object', () => {
-      CustomersList.findById(1).then(customer => {
-        expect(customer.dataValues.firstName).to.be.eql('constantinUpdate')
-      })
     })
   })
 
@@ -108,12 +106,10 @@ describe('CustomersRouter', () => {
         .delete('/customers/1')
         .then(res => {
           expect(res.status).to.be.eql(200)
+          CustomersList.findById(1).then(customer => {
+            expect(customer).to.be.null
+          })
         })
-    })
-    it('should have deleted the object', () => {
-      CustomersList.findById(1).then(customer => {
-        expect(customer).to.be.null
-      })
     })
   })
 })
