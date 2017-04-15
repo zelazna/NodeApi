@@ -25,5 +25,5 @@ $ DEBUG=express* node index.js
 ```
 lint files
 ```
-$ ./node_modules/.bin/eslint --fix --no-ignore filename
+$ ./node_modules/.bin/eslint --fix filename
 ```

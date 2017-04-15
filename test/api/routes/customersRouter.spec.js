@@ -2,30 +2,37 @@ const chaiHttp = require('chai-http')
 const chai = require('chai')
 
 const app = require('../../../api/app')
-const Sequelize = require('../../../db/collections')
-const CustomersList = Sequelize.CustomerList
+const db = require('../../../db/collections')
+const CustomerList = db.CustomerList
 
 chai.use(chaiHttp)
 const expect = chai.expect
 
-beforeEach(() => {
-  CustomersList.sync()
-  const testObject = {
-    'firstName': 'paginate',
-    'id': 1,
-    'lastName': 'yolo0à0à00sss',
-    'mail': 'constantin.ddguidon@gmail.com',
-    'nationalite': 'de',
-    'status': 'DONE'
-  }
-  CustomersList.build(testObject).save()
-})
-
-afterEach(() => {
-  CustomersList.truncate()
-})
-
 describe('CustomersRouter', () => {
+  before(() => {
+    return CustomerList.sync({ force: true })
+  })
+
+  beforeEach(() => {
+    const testObject = {
+      firstName: 'firstname',
+      id: 1,
+      lastName: 'lastname',
+      mail: 'uu.dd@gmail.com',
+      nationalite: 'de',
+      status: 'DONE'
+    }
+    return CustomerList.create(testObject)
+  })
+
+  afterEach(() => {
+    return CustomerList.truncate()
+  })
+
+  after(() => {
+    return CustomerList.drop()
+  })
+
   describe('GET /customers', () => {
     it('should be json', () => {
       return chai.request(app).get('/customers')
@@ -47,7 +54,7 @@ describe('CustomersRouter', () => {
         .then(res => {
           const customer = JSON.parse(res.text).customer
           expect(customer).to.be.an('object')
-          expect(customer.firstName).to.eql('paginate')
+          expect(customer.firstName).to.eql('firstname')
         })
     })
   })
@@ -55,11 +62,12 @@ describe('CustomersRouter', () => {
   describe('POST /customers', () => {
     it('should create a new customer', () => {
       const obj = {
-        'firstName': 'constantin',
-        'lastName': 'guidon',
-        'mail': 'constantin.guidon@gmail.com',
-        'nationalite': 'fr',
-        'status': 'DONE'
+        firstName: 'constantin',
+        lastName: 'guidon',
+        mail: 'constantin.guidon@gmail.com',
+        nationalite: 'fr',
+        status: 'DONE',
+        id: 5
       }
       return chai.request(app)
         .post('/customers')
@@ -70,30 +78,23 @@ describe('CustomersRouter', () => {
           expect(customer.firstName).to.eql('constantin')
         })
     })
-    it('should have 1 customer in the database', () => {
-      CustomersList
-        .findAndCountAll()
-        .then(result => {
-          expect(result.count).to.eql(1)
-        })
-    })
   })
 
   describe('PUT /customers/:id', () => {
     it('should send a 200 status', () => {
       const obj = {
-        'firstName': 'constantinUpdate',
-        'lastName': 'guidon',
-        'mail': 'constantin.guidon@gmail.com',
-        'nationalite': 'fr',
-        'status': 'DONE'
+        firstName: 'constantinUpdate',
+        lastName: 'guidon',
+        mail: 'constantin.guidon@gmail.com',
+        nationalite: 'fr',
+        status: 'DONE'
       }
       return chai.request(app)
         .put('/customers/1')
         .send(obj)
         .then(res => {
           expect(res.status).to.be.eql(200)
-          CustomersList.findById(1).then(customer => {
+          CustomerList.findById(1).then(customer => {
             expect(customer.dataValues.firstName).to.be.eql('constantinUpdate')
           })
         })
@@ -106,7 +107,7 @@ describe('CustomersRouter', () => {
         .delete('/customers/1')
         .then(res => {
           expect(res.status).to.be.eql(200)
-          CustomersList.findById(1).then(customer => {
+          CustomerList.findById(1).then(customer => {
             expect(customer).to.be.null
           })
         })
