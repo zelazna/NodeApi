@@ -2,7 +2,7 @@ const express = require('express')
 // const logger = require('morgan')
 const bodyParser = require('body-parser')
 
-const customersRouter = require('./routes/customersRouter')
+const customersRouter = require('./routes/customers')
 const middlewares = require('./middlewares')
 
 const { cors } = middlewares
