@@ -1,7 +1,7 @@
 const chaiHttp = require('chai-http')
 const chai = require('chai')
 
-const app = require('../../../api/App')
+const app = require('../../../api/app')
 const Sequelize = require('../../../db/collections')
 const CustomersList = Sequelize.CustomerList
 
