@@ -47,8 +47,6 @@ class CustomersRouter {
               status: res.status
             })
         }
-      }, err => {
-        next(err)
       })
   }
 
@@ -90,8 +88,6 @@ class CustomersRouter {
               status: res.status
             })
         }
-      }, err => {
-        next(err)
       })
   }
 

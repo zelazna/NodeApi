@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-const app = require('./api/App')
+const app = require('./api/app')
 const http = require('http')
 const models = require('./db/collections')
 

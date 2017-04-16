@@ -2,10 +2,11 @@ const express = require('express')
 // const logger = require('morgan')
 const bodyParser = require('body-parser')
 
-const customersRouter = require('./routes/customers')
+const routes = require('./routes')
 const middlewares = require('./middlewares')
 
 const { cors, errorhandler } = middlewares
+const { customersRouter, loginRouter } = routes
 
 class App {
   constructor () {
@@ -23,6 +24,7 @@ class App {
 
   routes () {
     this.express.use('/customers', customersRouter)
+    this.express.use('/login', loginRouter)
   }
 }
 
