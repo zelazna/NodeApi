@@ -33,7 +33,7 @@ describe('CustomersRouter', () => {
     return CustomerList.drop()
   })
 
-  describe('GET /customers', () => {
+  describe('GET request on /customers', () => {
     it('should be json', () => {
       return chai.request(app).get('/customers')
         .then(res => {
@@ -48,7 +48,7 @@ describe('CustomersRouter', () => {
     })
   })
 
-  describe('GET /customers/:id', () => {
+  describe('GET request on /customers/:id', () => {
     it('should be a customer object', () => {
       return chai.request(app).get('/customers/1')
         .then(res => {
@@ -65,7 +65,7 @@ describe('CustomersRouter', () => {
     })
   })
 
-  describe('POST /customers', () => {
+  describe('POST request on /customers', () => {
     it('should create a new customer', () => {
       const obj = {
         firstName: 'constantin',
@@ -86,7 +86,7 @@ describe('CustomersRouter', () => {
     })
   })
 
-  describe('PUT /customers/:id', () => {
+  describe('PUT request on /customers/:id', () => {
     const obj = {
       firstName: 'constantinUpdate',
       lastName: 'guidon',
@@ -115,7 +115,7 @@ describe('CustomersRouter', () => {
     })
   })
 
-  describe('DELETE /customers/:id', () => {
+  describe('DELETE request on /customers/:id', () => {
     it('should send a 200 status', () => {
       return chai.request(app)
         .delete('/customers/1')

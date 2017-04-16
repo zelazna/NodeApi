@@ -11,7 +11,7 @@
   "scripts": {
     "start": "NODE_ENV=DEVELOPMENT nodemon server.js",
     "test": "NODE_ENV=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive",
-    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk "
+    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
