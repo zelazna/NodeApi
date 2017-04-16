@@ -1,31 +1,39 @@
 # Customers List & Mailchimp Sync # WIP
-[![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=master)](https://travis-ci.org/zelazna/NodeApi)
+[![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=develop)](https://travis-ci.org/zelazna/NodeApi)
+[![Code Climate](https://codeclimate.com/github/zelazna/NodeApi/badges/gpa.svg)](https://codeclimate.com/github/zelazna/NodeApi)
 
-* Sequelize
-* Express
+### 1. `Dependencies et Requirements`
+
+* Sequelize with postgresql
+* Node with Express
 * Mocha & Chai
 
-### Commands
+### 2. `Endpoints`
 
-run the API ( rely on nodemon for now)
+WIP
+
+### 3. `Commands`
+run the API ( rely on nodemon for now) :
+```
+$ npm start
+```
+
+launch tests (generate code coverage with istanbul as well) :
 ```
 $ npm test
 ```
-launch tests (generate code coverage with istanbul as well )
+
+debug the application :
 ```
-$ npm test
-```
-debug the application
-```
-$ DEBUG=express* node index.js
-```
-lint files
-```
-$ ./node_modules/.bin/eslint --fix --no-ignore filename
+$ DEBUG=express* node server.js
 ```
 
-### TODO
+or you can also run if you set a breakpoint somewhere into the code :
+```
+$ npm run dev
+```
 
-* basic Auth & tokens managment with redis
-* externalize MailchimpClient
-* complete tests
+lint files :
+```
+$ ./node_modules/.bin/eslint --fix filename
+```

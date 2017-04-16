@@ -1,69 +1,110 @@
 const express = require('express')
 const Sequelize = require('sequelize')
 
-const router = express.Router()
-const collections = require('../../db/collections')
-const middlewares = require('../middlewares')
+const CustomersList = require('../../db/collections').CustomerList
 
-const { cors } = middlewares
-
-router.use(cors)
-
-router.get('/customers', (req, res, next) => {
-  const options = {
-    order: [['createdAt', 'DESC']],
-    limit: req.query.limit || process.env.QUERY_LIMIT
+class CustomersRouter {
+  constructor () {
+    this.router = express.Router()
+    this.init()
   }
-  Sequelize.Promise.all([
-    collections.CustomerList.findAll(options)
-  ]).then(results => {
-    res.send(results[0])
-  }, err => {
-    next(err)
-  })
-})
 
-router.get('/customers/:id', (req, res, next) => {
-  const options = {
-    order: [['createdAt', 'DESC']],
-    limit: req.query.limit || process.env.QUERY_LIMIT
+  getAll (req, res, next) {
+    let options = {
+      order: [['createdAt', 'DESC']],
+      limit: req.query.limit || process.env.QUERY_LIMIT
+    }
+    Sequelize.Promise.all([
+      CustomersList.findAll(options)
+    ]).then(results => {
+      const customers = results[0]
+      res.status(200)
+        .send({
+          customers,
+          status: res.status
+        })
+    }, err => {
+      next(err)
+    })
   }
-  options.where = req.params
-  Sequelize.Promise.all([
-    collections.CustomerList.findAll(options)
-  ]).then(results => {
-    res.send(results[0])
-  }, err => {
-    next(err)
-  })
-})
 
-router.post('/customers', (req, res, next) => {
-  collections.CustomerList.create(req.body)
-    .then(() => {
-      res.send('ok')
-    }, err => {
-      next(err)
+  getOne (req, res, next) {
+    Sequelize.Promise.props({
+      customer: CustomersList.findById(req.params.id)
     })
-})
+      .then(result => {
+        if (result.customer) {
+          const customer = result.customer.dataValues
+          res.status(200)
+            .send({
+              customer,
+              status: res.status
+            })
+        } else {
+          res.status(404)
+            .send({
+              message: 'No customer found with the given id.',
+              status: res.status
+            })
+        }
+      }, err => {
+        next(err)
+      })
+  }
 
-router.put('/customers', (req, res, next) => {
-  collections.CustomerList.upsert(req.body)
-    .then(() => {
-      res.send('ok')
-    }, err => {
-      next(err)
-    })
-})
+  createOne (req, res, next) {
+    CustomersList.create(req.body)
+      .then(customer => {
+        res.status(201)
+          .send({
+            customer,
+            status: res.status
+          })
+      }, err => {
+        next(err)
+      })
+  }
 
-router.delete('/customers', (req, res, next) => {
-  collections.CustomerList.findById(req.body.id)
-    .then(customer => {
-      customer.destroy()
-      res.send('ok')
-    }, err => {
-      next(err)
-    })
-})
+  updateOne (req, res, next) {
+    let options = {
+      where: { id: req.params.id }
+    }
+    CustomersList.update(req.body, options)
+      .then(result => {
+        res.sendStatus(200)
+      }, err => {
+        next(err)
+      })
+  }
 
-module.exports = router
+  deleteOne (req, res, next) {
+    CustomersList.findById(req.params.id)
+      .then(customer => {
+        if (customer) {
+          customer.destroy()
+          res.sendStatus(200)
+        } else {
+          res.status(404)
+            .send({
+              message: 'No customer found with the given id.',
+              status: res.status
+            })
+        }
+      }, err => {
+        next(err)
+      })
+  }
+
+  init () {
+    this.router.get('/', this.getAll)
+    this.router.get('/:id', this.getOne)
+    this.router.post('/', this.createOne)
+    this.router.put('/:id', this.updateOne)
+    this.router.delete('/:id', this.deleteOne)
+  }
+}
+
+const customersRoutes = new CustomersRouter()
+customersRoutes.init()
+
+module.exports = customersRoutes.router

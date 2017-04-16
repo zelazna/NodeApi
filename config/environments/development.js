@@ -1,6 +1,3 @@
-const path = require('path')
-
-const currentDirectory = path.dirname(__filename)
-const rootDirectory = path.join(currentDirectory, '../../')
+const rootDirectory = require('../../test/utils').rootDirectory
 
 require('dotenv').config({ path: `${rootDirectory}.env` })

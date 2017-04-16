@@ -1,14 +1,29 @@
 const express = require('express')
-const logger = require('morgan')
+// const logger = require('morgan')
 const bodyParser = require('body-parser')
 
-const routes = require('./routes/customers')
+const customersRouter = require('./routes/customers')
+const middlewares = require('./middlewares')
 
-const expressApp = express()
+const { cors, errorhandler } = middlewares
 
-expressApp.use(logger('dev'))
-expressApp.use(bodyParser.json())
-expressApp.use(bodyParser.urlencoded({ extended: false }))
-expressApp.use('/', routes)
+class App {
+  constructor () {
+    this.express = express()
+    this.middleware()
+    this.routes()
+  }
 
-module.exports = expressApp
+  middleware () {
+    // this.express.use(logger('dev'))
+    this.express.use(bodyParser.json())
+    this.express.use(bodyParser.urlencoded({ extended: false }))
+    this.express.use(cors, errorhandler)
+  }
+
+  routes () {
+    this.express.use('/customers', customersRouter)
+  }
+}
+
+module.exports = new App().express

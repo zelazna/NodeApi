@@ -1,16 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * load environment variables.
- */
-
-require('./config/environment')
-
-/**
  * Module dependencies.
  */
 
-const app = require('./api/app')
+const app = require('./api/App')
 const http = require('http')
 const models = require('./db/collections')
 
@@ -19,6 +13,26 @@ const models = require('./db/collections')
  */
 
 const server = http.createServer(app)
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+const normalizePort = val => {
+  const portToNormalize = parseInt(val, 10)
+
+  if (isNaN(portToNormalize)) {
+    // named pipe
+    return val
+  }
+
+  if (portToNormalize >= 0) {
+    // port number
+    return portToNormalize
+  }
+
+  return false
+}
 
 /**
  * Get port from environment and store in Express.
@@ -30,6 +44,7 @@ app.set('port', port)
 /**
  * Load the models.
  */
+
 models.sequelize.sync().then(() => {
   /**
    * Listen on provided port, on all network interfaces.
@@ -42,7 +57,8 @@ models.sequelize.sync().then(() => {
 /**
  * Event listener for HTTP server "error" event.
  */
-function onError (error) {
+
+const onError = error => {
   if (error.syscall !== 'listen') {
     throw error
   }
@@ -65,27 +81,9 @@ function onError (error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-function onListening () {
+
+const onListening = () => {
   const addr = server.address()
   const bind = typeof addr === 'string' ? `pipe ${addr}` : addr.port
   console.log(`Listening on http://localhost:${bind}`)
-}
-
-/**
- * Normalize a port into a number, string, or false.
- */
-function normalizePort (val) {
-  const portToNormalize = parseInt(val, 10)
-
-  if (isNaN(portToNormalize)) {
-    // named pipe
-    return val
-  }
-
-  if (portToNormalize >= 0) {
-    // port number
-    return portToNormalize
-  }
-
-  return false
 }

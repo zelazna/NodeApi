@@ -9,8 +9,9 @@
   },
   "repository": "https://github.com/googlecodelabs/sheets-api",
   "scripts": {
-    "start": "ENVIROMNENT=DEVELOPMENT nodemon server.js",
-    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive"
+    "start": "NODE_ENV=DEVELOPMENT nodemon server.js",
+    "test": "NODE_ENV=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive",
+    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
     "eslint-plugin-chai-friendly": "^0.2.0",
