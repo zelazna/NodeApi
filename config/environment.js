@@ -1,3 +1,3 @@
-const environment = process.env.ENVIROMNENT || 'DEVELOPMENT'
+const environment = process.env.NODE_ENV || 'DEVELOPMENT'
 
 require(`./environments/${environment.toLowerCase()}`)

@@ -1,11 +1,11 @@
 const express = require('express')
-// const logger = require('morgan')
+const logger = require('morgan')
 const bodyParser = require('body-parser')
 
 const customersRouter = require('./routes/customers')
 const middlewares = require('./middlewares')
 
-const { cors } = middlewares
+const { cors, errorhandler } = middlewares
 
 class App {
   constructor () {
@@ -15,10 +15,10 @@ class App {
   }
 
   middleware () {
-    // this.express.use(logger('dev'))
+    this.express.use(logger('dev'))
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: false }))
-    this.express.use(cors)
+    this.express.use(cors, errorhandler)
   }
 
   routes () {

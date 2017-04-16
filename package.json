@@ -9,8 +9,9 @@
   },
   "repository": "https://github.com/googlecodelabs/sheets-api",
   "scripts": {
-    "start": "ENVIROMNENT=DEVELOPMENT nodemon server.js",
-    "test": "ENVIROMNENT=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive"
+    "start": "NODE_ENV=DEVELOPMENT nodemon server.js",
+    "test": "NODE_ENV=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive",
+    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk "
   },
   "dependencies": {
     "body-parser": "~1.17.1",

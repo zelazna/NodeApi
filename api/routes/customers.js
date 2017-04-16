@@ -80,8 +80,16 @@ class CustomersRouter {
   deleteOne (req, res, next) {
     CustomersList.findById(req.params.id)
       .then(customer => {
-        customer.destroy()
-        res.sendStatus(200)
+        if (customer) {
+          customer.destroy()
+          res.sendStatus(200)
+        } else {
+          res.status(404)
+            .send({
+              message: 'No customer found with the given id.',
+              status: res.status
+            })
+        }
       }, err => {
         next(err)
       })

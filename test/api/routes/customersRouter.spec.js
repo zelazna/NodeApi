@@ -57,6 +57,12 @@ describe('CustomersRouter', () => {
           expect(customer.firstName).to.eql('firstname')
         })
     })
+    it('should return a 404 code', () => {
+      return chai.request(app).get('/customers/2').catch(err => {
+        expect(err.status).to.eql(404)
+        expect(err.message).to.eql('Not Found')
+      })
+    })
   })
 
   describe('POST /customers', () => {
@@ -81,14 +87,14 @@ describe('CustomersRouter', () => {
   })
 
   describe('PUT /customers/:id', () => {
+    const obj = {
+      firstName: 'constantinUpdate',
+      lastName: 'guidon',
+      mail: 'constantin.guidon@gmail.com',
+      nationalite: 'fr',
+      status: 'DONE'
+    }
     it('should send a 200 status', () => {
-      const obj = {
-        firstName: 'constantinUpdate',
-        lastName: 'guidon',
-        mail: 'constantin.guidon@gmail.com',
-        nationalite: 'fr',
-        status: 'DONE'
-      }
       return chai.request(app)
         .put('/customers/1')
         .send(obj)
@@ -97,6 +103,14 @@ describe('CustomersRouter', () => {
           CustomerList.findById(1).then(customer => {
             expect(customer.dataValues.firstName).to.be.eql('constantinUpdate')
           })
+        })
+    })
+    it('should return a 404 code', () => {
+      return chai.request(app).put('/customers/2')
+        .send(obj)
+        .catch(err => {
+          expect(err.status).to.eql(404)
+          expect(err.message).to.eql('Not Found')
         })
     })
   })
@@ -110,6 +124,13 @@ describe('CustomersRouter', () => {
           CustomerList.findById(1).then(customer => {
             expect(customer).to.be.null
           })
+        })
+    })
+    it('should return a 404 code', () => {
+      return chai.request(app).delete('/customers/2')
+        .catch(err => {
+          expect(err.status).to.eql(404)
+          expect(err.message).to.eql('Not Found')
         })
     })
   })
