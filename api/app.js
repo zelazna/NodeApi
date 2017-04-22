@@ -6,7 +6,7 @@ const routes = require('./routes')
 const middlewares = require('./middlewares')
 
 const { cors, errorhandler } = middlewares
-const { customersRouter, loginRouter } = routes
+const { customersRouter, loginRouter, defaultRouter } = routes
 
 class App {
   constructor () {
@@ -23,6 +23,7 @@ class App {
   }
 
   routes () {
+    this.express.use('/', defaultRouter)
     this.express.use('/customers', customersRouter)
     this.express.use('/login', loginRouter)
   }

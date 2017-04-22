@@ -1,4 +1,3 @@
-
 module.exports = (sequelize, DataTypes) => {
   const CustomerList = sequelize.define('CustomerList',
     {
