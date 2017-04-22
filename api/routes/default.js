@@ -6,12 +6,12 @@ class DefaultRouter {
     this.init()
   }
 
-  loginUser (req, res, next) {
+  Index (req, res, next) {
     res.send({message: 'Welcome'})
   }
 
   init () {
-    this.router.get('/', this.loginUser)
+    this.router.get('/', this.Index)
   }
 }
 

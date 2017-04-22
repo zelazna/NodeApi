@@ -7,7 +7,7 @@ chai.use(chaiHttp)
 const expect = chai.expect
 
 describe('LoginRouter', () => {
-  describe('GET request on /', () => {
+  describe('GET request on /login', () => {
     it('should be json', () => {
       return chai.request(app).get('/login')
         .then(res => {
