@@ -9,7 +9,7 @@ class LoginRouter {
   }
 
   loginUser (req, res, next) {
-    res.send('login')
+    res.send({message: 'login'})
   }
 
   init () {

@@ -7,7 +7,7 @@ class DefaultRouter {
   }
 
   loginUser (req, res, next) {
-    res.send('Welcome')
+    res.send({message: 'Welcome'})
   }
 
   init () {
