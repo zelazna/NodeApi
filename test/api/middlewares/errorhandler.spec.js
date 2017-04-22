@@ -1,4 +1,5 @@
 const expect = require('chai').expect
+const sinon = require('sinon')
 
 const errorhandler = require('../../../api/middlewares/errorhandler')
 const RequestMock = require('../../mocks/responseMock')
@@ -21,6 +22,13 @@ describe('errorhandler middleware', () => {
       errorhandler(error, {}, res, {})
       expect(res.sendedResponse.error).to.equal(error)
       expect(res.sendedResponse.status).to.equal(500)
+    })
+    it('should call next if headers are already sent', () => {
+      const nextSpy = sinon.spy()
+      const res = new RequestMock()
+      res.headersSent = true
+      errorhandler({}, {}, res, nextSpy)
+      expect(nextSpy.calledOnce).to.be.true
     })
   })
 })

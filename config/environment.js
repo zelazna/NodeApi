@@ -17,4 +17,3 @@ const database = new Sequelize(
 )
 
 module.exports.database = database
-

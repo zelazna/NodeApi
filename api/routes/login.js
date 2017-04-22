@@ -1,5 +1,4 @@
 const express = require('express')
-// const Sequelize = require('sequelize')
 
 // const CustomersList = require('../../db/collections').CustomerList
 

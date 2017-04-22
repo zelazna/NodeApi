@@ -3,6 +3,7 @@ const crypto = require('crypto')
 const colors = require('colors')
 const argv = require('minimist')(process.argv.slice(2))
 
+const User = require('./models/user')
 const Users = require('./db/collections').Users
 const [userName, password] = argv['_']
 const save = argv['save']
@@ -52,11 +53,11 @@ const saltHashPassword = (userpassword) => {
 
 const result = saltHashPassword(password)
 
-const user = {
+const user = new User({
   login: userName,
   passwordHash: result.passwordHash,
   nSalt: result.salt
-}
+})
 
 if (save) {
   Users.create(user)
