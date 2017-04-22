@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-const app = require('./api/App')
+const app = require('./api/app')
 const http = require('http')
-const models = require('./db/collections')
+const collections = require('./db/collections')
 
 /**
  * Create HTTP server.
@@ -45,7 +45,7 @@ app.set('port', port)
  * Load the models.
  */
 
-models.sequelize.sync().then(() => {
+collections.sequelize.sync().then(() => {
   /**
    * Listen on provided port, on all network interfaces.
    */

@@ -1,5 +1,4 @@
 const express = require('express')
-const Sequelize = require('sequelize')
 
 const CustomersList = require('../../db/collections').CustomerList
 
@@ -14,7 +13,7 @@ class CustomersRouter {
       order: [['createdAt', 'DESC']],
       limit: req.query.limit || process.env.QUERY_LIMIT
     }
-    Sequelize.Promise.all([
+    Promise.all([
       CustomersList.findAll(options)
     ]).then(results => {
       const customers = results[0]
@@ -29,12 +28,10 @@ class CustomersRouter {
   }
 
   getOne (req, res, next) {
-    Sequelize.Promise.props({
-      customer: CustomersList.findById(req.params.id)
-    })
+    CustomersList.findById(req.params.id)
       .then(result => {
-        if (result.customer) {
-          const customer = result.customer.dataValues
+        if (result) {
+          const customer = result.dataValues
           res.status(200)
             .send({
               customer,
@@ -47,8 +44,6 @@ class CustomersRouter {
               status: res.status
             })
         }
-      }, err => {
-        next(err)
       })
   }
 
@@ -90,8 +85,6 @@ class CustomersRouter {
               status: res.status
             })
         }
-      }, err => {
-        next(err)
       })
   }
 
