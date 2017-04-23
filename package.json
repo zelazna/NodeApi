@@ -10,10 +10,12 @@
   "repository": "https://github.com/googlecodelabs/sheets-api",
   "scripts": {
     "start": "NODE_ENV=DEVELOPMENT nodemon server.js",
-    "test": "NODE_ENV=TEST nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --recursive",
-    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive"
+    "test": "NODE_ENV=TEST nyc ./node_modules/.bin/mocha --recursive",
+    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive",
+    "report": "nyc report"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "colors": "^1.1.2",
     "dotenv": "^4.0.0",
@@ -22,9 +24,11 @@
     "morgan": "^1.8.1",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
+    "redis": "^2.7.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
-    "sequelize": "^3.30.3"
+    "sequelize": "^3.30.3",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",

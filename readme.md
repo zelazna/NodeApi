@@ -23,14 +23,14 @@ launch tests (generate code coverage with istanbul as well) :
 $ npm test
 ```
 
-debug the application :
+debug the application ( with a debugger statement):
 ```
-$ DEBUG=express* node server.js
+$ npm run debug
 ```
 
-or you can also run if you set a breakpoint somewhere into the code :
+generate credentials:
 ```
-$ npm run dev
+$ ./cli.js username password --save
 ```
 
 lint files :

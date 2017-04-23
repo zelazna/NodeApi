@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize')
+const redis = require('redis')
+const bluebird = require('bluebird')
 
 const environment = process.env.NODE_ENV || 'DEVELOPMENT'
 
@@ -16,4 +18,11 @@ const database = new Sequelize(
   }
 )
 
-module.exports.database = database
+const redisClient = redis.createClient({url: process.env.REDIS_URL}).on('error', err => console.log('Error ' + err))
+bluebird.promisifyAll(redis.RedisClient.prototype)
+bluebird.promisifyAll(redis.Multi.prototype)
+
+module.exports = {
+  database,
+  redisClient
+}
