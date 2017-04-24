@@ -6,18 +6,19 @@ class RedisTokenRepository {
     this.redis = redis
     this.ttl = ttl
   }
-  getToken (userName) {
-    return this.redis.getAsync(userName).then(res => {
-      console.log(res)
-    })
+  getToken (token) {
+    return this.redis.getAsync(token)
   }
-  setToken (userName) {
+  setToken (user) {
     const token = this._generateSessionId()
-    return this.redis.setAsync(userName, token, 'EX', this.ttl)
-      .then(result => console.log(result))
+    this.redis.set(token, user.id, 'EX', this.ttl)
+    return token
   }
   _generateSessionId () {
     return uuidV4()
+  }
+  deleteToken (token) {
+    return this.redis.delAsync(token)
   }
 }
 
