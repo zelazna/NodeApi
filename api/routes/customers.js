@@ -1,10 +1,12 @@
 const express = require('express')
 
 const Customers = require('../../db/collections').CustomerList
+const auth = require('../middlewares').auth
 
 class CustomersRouter {
   constructor () {
     this.router = express.Router()
+    this.middleware()
     this.init()
   }
 
@@ -86,6 +88,10 @@ class CustomersRouter {
             })
         }
       })
+  }
+
+  middleware () {
+    this.router.use(auth)
   }
 
   init () {
