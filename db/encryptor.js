@@ -1,10 +1,9 @@
-const crypto = require('crypto')
-var Buffer = require('safe-buffer').Buffer
+const Buffer = require('safe-buffer').Buffer
+const bcrypt = require('bcrypt')
 
 class Encryptor {
   constructor () {
-    this.key = process.env.DATABASE_ENCRYPTION_KEY
-    this.algorithm = 'aes-256-ctr'
+    this.saltRounds = parseInt(process.env.SALT_ROUNDS) || 1
   }
 
   getCredentials (base64Auth) {
@@ -12,18 +11,12 @@ class Encryptor {
     return new Buffer(credentials, 'base64').toString('utf8').split(':')
   }
 
-  encrypt (text) {
-    var cipher = crypto.createCipher(this.algorithm, this.key)
-    var crypted = cipher.update(text, 'utf8', 'hex')
-    crypted += cipher.final('hex')
-    return crypted
+  encrypt (password) {
+    return bcrypt.hash(password, this.saltRounds)
   }
 
-  decrypt (text) {
-    var decipher = crypto.createDecipher(this.algorithm, this.key)
-    var dec = decipher.update(text, 'hex', 'utf8')
-    dec += decipher.final('utf8')
-    return dec
+  decrypt (password, hash) {
+    return bcrypt.compare(password, hash)
   }
 }
 

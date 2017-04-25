@@ -9,8 +9,7 @@ describe('Redis token repository', () => {
     user = new User({
       id: 123,
       login: 'toto',
-      passwordHash: 'kjhFGH445',
-      nSalt: 'khjhk56'
+      passwordHash: 'kjhFGH445'
     })
     return repository.redis.flushall()
   })

@@ -9,8 +9,7 @@ describe('Encryptor class', () => {
   })
   describe('Constructor', () => {
     it('should contain the correct values', () => {
-      expect(encryptor.key).to.eql(process.env.DATABASE_ENCRYPTION_KEY)
-      expect(encryptor.algorithm).to.eql('aes-256-ctr')
+      expect(encryptor.saltRounds).to.eql(process.env.SALT_ROUNDS)
     })
   })
   describe('getCredentials', () => {

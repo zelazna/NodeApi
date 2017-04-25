@@ -15,6 +15,7 @@
     "report": "nyc report"
   },
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "colors": "^1.1.2",
