@@ -1,6 +1,6 @@
-const Client = require('../../../db/redisTokenRepository')
+const Client = require('../../db/redisTokenRepository')
 const expect = require('chai').expect
-const User = require('../../../models/user')
+const User = require('../../models/user')
 let repository, user
 
 describe('Redis token repository', () => {
