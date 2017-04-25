@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 
 class Encryptor {
   constructor () {
-    this.saltRounds = parseInt(process.env.SALT_ROUNDS) || 1
+    this.saltRounds = parseInt(process.env.SALT_ROUNDS) || 2
   }
 
   getCredentials (base64Auth) {

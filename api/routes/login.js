@@ -3,6 +3,7 @@ const express = require('express')
 const Users = require('../../db/collections').Users
 const User = require('../../models/user')
 const Encryptor = require('../../db/encryptor')
+const RedisTokenRepository = require('../../db/redisTokenRepository')
 
 class LoginRouter {
   constructor () {
@@ -13,15 +14,15 @@ class LoginRouter {
   loginUser (req, res, next) {
     // @TODO FIND A WAY TO REFRACTOR
     const encryptor = new Encryptor()
+    const redis = new RedisTokenRepository()
     const [login, password] = encryptor.getCredentials(req.headers.authorization)
-    Users.findOne({
-      where: { login: login }
-    })
+    Users.findOne({ where: { login } })
       .then(data => {
         const user = new User(data)
-        console.log(user)
+        encryptor.compare(password, user.passwordHash)
+          .then(result => result ? res.send({ token: redis.setToken(user) }) : res.send({ error: 'Wrong Credentials' }))
       })
-      .catch(() => res.status(404).send({ message: 'User Not Found' }))
+      .catch(() => res.status(404).send({ message: 'User not found' }))
   }
 
   init () {
