@@ -9,7 +9,7 @@ describe('Encryptor class', () => {
   })
   describe('Constructor', () => {
     it('should contain the correct values', () => {
-      expect(encryptor.saltRounds).to.eql(process.env.SALT_ROUNDS)
+      expect(encryptor.saltRounds).to.eql(parseInt(process.env.SALT_ROUNDS))
     })
   })
   describe('getCredentials', () => {
@@ -17,6 +17,22 @@ describe('Encryptor class', () => {
       const credentials = 'Basic ' + new Buffer('root:root').toString('base64')
       const result = encryptor.getCredentials(credentials)
       expect(result).to.eql(['root', 'root'])
+    })
+  })
+  describe('encrypt', () => {
+    it('should return a hash', () => {
+      encryptor.encrypt('toto').then(data => {
+        expect(data).to.be.a('string')
+      })
+    })
+  })
+  describe('decrypt', () => {
+    it('should get the correct value after decrypted', () => {
+      encryptor.encrypt('toto').then(data => {
+        encryptor.decrypt(data).then(data => {
+          expect(data).to.be.eql('toto')
+        })
+      })
     })
   })
 })
