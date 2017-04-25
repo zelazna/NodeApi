@@ -26,10 +26,10 @@ class LoginRouter {
         if (result) {
           res.send({ token: redis.setToken(user) })
         } else {
-          res.send({ error: 'Wrong Credentials' })
+          res.status(403).send({ error: 'Wrong Credentials' })
         }
       })
-      .catch(() => res.status(404).send({ message: 'User not found' }))
+      .catch(() => res.status(403).send({ message: 'User not found' }))
   }
 
   init () {
