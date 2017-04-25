@@ -16,11 +16,18 @@ class LoginRouter {
     const encryptor = new Encryptor()
     const redis = new RedisTokenRepository()
     const [login, password] = encryptor.getCredentials(req.headers.authorization)
+    let user
     Users.findOne({ where: { login } })
       .then(data => {
-        const user = new User(data)
-        encryptor.compare(password, user.passwordHash)
-          .then(result => result ? res.send({ token: redis.setToken(user) }) : res.send({ error: 'Wrong Credentials' }))
+        user = new User(data)
+        return encryptor.compare(password, user.passwordHash)
+      })
+      .then(result => {
+        if (result) {
+          res.send({ token: redis.setToken(user) })
+        } else {
+          res.send({ error: 'Wrong Credentials' })
+        }
       })
       .catch(() => res.status(404).send({ message: 'User not found' }))
   }
