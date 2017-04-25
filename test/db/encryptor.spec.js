@@ -26,13 +26,15 @@ describe('Encryptor class', () => {
       })
     })
   })
-  describe('decrypt', () => {
-    it('should get the correct value after decrypted', () => {
-      encryptor.encrypt('toto').then(data => {
-        encryptor.decrypt(data).then(data => {
-          expect(data).to.be.eql('toto')
+  describe('compare', () => {
+    it('should return true after compare sames values', (done) => {
+      encryptor
+        .encrypt('toto').then(data => {
+          encryptor.compare('toto', data).then(res => {
+            expect(res).to.be.true
+          })
+          done()
         })
-      })
     })
   })
 })

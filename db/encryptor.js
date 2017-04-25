@@ -15,7 +15,7 @@ class Encryptor {
     return bcrypt.hash(password, this.saltRounds)
   }
 
-  decrypt (password, hash) {
+  compare (password, hash) {
     return bcrypt.compare(password, hash)
   }
 }
