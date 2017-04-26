@@ -1,6 +1,7 @@
 # Customers List & Mailchimp Sync # WIP
 [![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=develop)](https://travis-ci.org/zelazna/NodeApi)
 [![Code Climate](https://codeclimate.com/github/zelazna/NodeApi/badges/gpa.svg)](https://codeclimate.com/github/zelazna/NodeApi)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ### 1. `Dependencies et Requirements`
 

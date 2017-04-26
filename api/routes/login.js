@@ -15,6 +15,9 @@ class LoginRouter {
     // @TODO FIND A WAY TO REFRACTOR
     const encryptor = new Encryptor()
     const redis = new RedisTokenRepository()
+    if (!req.headers.authorization) {
+      return res.status(403).send({ message: 'no authorization' })
+    }
     const [login, password] = encryptor.getCredentials(req.headers.authorization)
     let user
     Users.findOne({ where: { login } })

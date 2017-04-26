@@ -1,6 +1,7 @@
 const express = require('express')
 // const logger = require('morgan')
 const bodyParser = require('body-parser')
+const helmet = require('helmet')
 
 const routes = require('./routes')
 const middlewares = require('./middlewares')
@@ -19,7 +20,7 @@ class App {
     // this.express.use(logger('dev'))
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: false }))
-    this.express.use(cors, errorhandler)
+    this.express.use(cors, errorhandler, helmet())
   }
 
   routes () {

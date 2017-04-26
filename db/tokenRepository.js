@@ -11,7 +11,8 @@ class TokenRepository {
   }
 
   setToken (token, value) {
-    this.redis.set(token, value, 'EX', this.ttl)
+    // @TODO FIX TTL
+    this.redis.set(token, value)
   }
 
   deleteToken (token) {
