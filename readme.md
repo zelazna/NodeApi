@@ -6,10 +6,26 @@
 ### 1. `Dependencies et Requirements`
 
 * Sequelize with postgresql
+* Redis
 * Node with Express
 * Mocha & Chai
+* ESLint Standard
+
+#### Installation:
+
+```
+$ npm install
+```
 
 ### 2. `Endpoints`
+
+#### Authentification :
+
+| METHOD | URL          | ACTION                                        |
+|--------|--------------|-----------------------------------------------|
+| GET    | /login       | get a token for perform request on /customers |
+
+#### CRUD  Operation :
 
 Manage a customers list , the endpoints follow the REST API principles :
 
@@ -22,6 +38,7 @@ Manage a customers list , the endpoints follow the REST API principles :
 | DELETE | /customers/1 | delete the customer with id 1 |
 
 ### 3. `Commands`
+
 run the API ( rely on nodemon for now) :
 ```
 $ npm start
@@ -40,9 +57,4 @@ $ npm run debug
 generate credentials:
 ```
 $ ./cli.js username password --save
-```
-
-lint files :
-```
-$ ./node_modules/.bin/eslint --fix filename
 ```
