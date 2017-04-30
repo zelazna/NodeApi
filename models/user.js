@@ -1,7 +1,7 @@
 module.exports = class User {
-  constructor ({login, passwordHash, nSalt}) {
+  constructor ({id = undefined, login, passwordHash} = {}) {
+    this.id = id
     this.login = login
     this.passwordHash = passwordHash
-    this.nSalt = nSalt
   }
 }

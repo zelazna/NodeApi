@@ -1,10 +1,12 @@
 const express = require('express')
 
-const CustomersList = require('../../db/collections').CustomerList
+const Customers = require('../../db/collections').CustomerList
+const auth = require('../middlewares').auth
 
 class CustomersRouter {
   constructor () {
     this.router = express.Router()
+    this.middleware()
     this.init()
   }
 
@@ -14,7 +16,7 @@ class CustomersRouter {
       limit: req.query.limit || process.env.QUERY_LIMIT
     }
     Promise.all([
-      CustomersList.findAll(options)
+      Customers.findAll(options)
     ]).then(results => {
       const customers = results[0]
       res.status(200)
@@ -28,7 +30,7 @@ class CustomersRouter {
   }
 
   getOne (req, res, next) {
-    CustomersList.findById(req.params.id)
+    Customers.findById(req.params.id)
       .then(result => {
         if (result) {
           const customer = result.dataValues
@@ -48,7 +50,7 @@ class CustomersRouter {
   }
 
   createOne (req, res, next) {
-    CustomersList.create(req.body)
+    Customers.create(req.body)
       .then(customer => {
         res.status(201)
           .send({
@@ -64,7 +66,7 @@ class CustomersRouter {
     let options = {
       where: { id: req.params.id }
     }
-    CustomersList.update(req.body, options)
+    Customers.update(req.body, options)
       .then(result => {
         res.sendStatus(200)
       }, err => {
@@ -73,7 +75,7 @@ class CustomersRouter {
   }
 
   deleteOne (req, res, next) {
-    CustomersList.findById(req.params.id)
+    Customers.findById(req.params.id)
       .then(customer => {
         if (customer) {
           customer.destroy()
@@ -86,6 +88,10 @@ class CustomersRouter {
             })
         }
       })
+  }
+
+  middleware () {
+    this.router.use(auth)
   }
 
   init () {

@@ -1,6 +1,17 @@
 language: node_js
 services:
   - postgresql
+  - redis
 before_script:
   - psql -c 'create database customers_test;' -U postgres
+sudo: false
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.8
+    - g++-4.8
 

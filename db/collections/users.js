@@ -9,10 +9,6 @@ module.exports = (sequelize, DataTypes) => {
       passwordHash: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      nSalt: {
-        type: DataTypes.STRING,
-        allowNull: false
       }
     })
 

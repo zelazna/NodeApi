@@ -1,6 +1,5 @@
 class ResponseMock {
   constructor () {
-    this.calledTimes = 0
     this.calledWith = []
     this.sendedResponse = {}
   }
