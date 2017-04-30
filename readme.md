@@ -11,7 +11,15 @@
 
 ### 2. `Endpoints`
 
-WIP
+Manage a customers list , the endpoints follow the REST API principles :
+
+| METHOD | URL          | ACTION                        |
+|--------|--------------|-------------------------------|
+| GET    | /customers   | get all customers             |
+| GET    | /customers/1 | get the customer with id 1    |
+| POST   | /customers   | create a customer             |
+| PUT    | /customers/1 | update the customer with id 1 |
+| DELETE | /customers/1 | delete the customer with id 1 |
 
 ### 3. `Commands`
 run the API ( rely on nodemon for now) :
