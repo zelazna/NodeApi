@@ -16,6 +16,8 @@
 ```
 $ npm install
 ```
+Copy the .sample.env into .env and fill it with your databases Urls and API keys
+for run the test create a .test.env
 
 ### 2. `Endpoints`
 
