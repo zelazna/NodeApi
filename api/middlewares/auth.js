@@ -1,5 +1,5 @@
 const RedisTokenRepository = require('../../db/redisTokenRepository')
-const repository = new RedisTokenRepository(60 * 60 * 24)
+const repository = new RedisTokenRepository()
 
 module.exports = (req, res, next) => {
   const token = req.headers['x-auth-token'] || ''
@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
       if (data) {
         next()
       } else {
-        res.status(403).send({ message: 'not authorized' })
+        res.status(403).send({ message: 'not logged in' })
       }
     })
     .catch(err => next(err))

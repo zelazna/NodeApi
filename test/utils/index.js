@@ -15,7 +15,6 @@ const loadJsonResource = filePath => {
   return JSON.parse(data)
 }
 
-
 module.exports = {
   loadJsonResource,
   rootDirectory

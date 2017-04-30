@@ -3,7 +3,7 @@ const redis = require('../config/environment').redisClient
 class TokenRepository {
   constructor (ttl) {
     this.redis = redis
-    this.ttl = ttl
+    this.ttl = ttl || 86400
   }
 
   getToken (token) {
@@ -11,8 +11,7 @@ class TokenRepository {
   }
 
   setToken (token, value) {
-    // @TODO FIX TTL
-    this.redis.set(token, value)
+    this.redis.set(token, value, 'EX', this.ttl)
   }
 
   deleteToken (token) {

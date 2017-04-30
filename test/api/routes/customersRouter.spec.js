@@ -3,10 +3,14 @@ const chai = require('chai')
 
 const app = require('../../../api/app')
 const db = require('../../../db/collections')
+const RedisTokenRepository = require('../../../db/redisTokenRepository')
+
+const repository = new RedisTokenRepository()
 const CustomerList = db.CustomerList
 
 chai.use(chaiHttp)
 const expect = chai.expect
+let token
 
 describe('CustomersRouter', () => {
   before(() => {
@@ -14,6 +18,7 @@ describe('CustomersRouter', () => {
   })
 
   beforeEach(() => {
+    token = repository.setToken({ id: 1 })
     const testObject = {
       firstName: 'firstname',
       id: 1,
@@ -35,13 +40,13 @@ describe('CustomersRouter', () => {
 
   describe('GET request on /customers', () => {
     it('should be json', () => {
-      return chai.request(app).get('/customers')
+      return chai.request(app).get('/customers').set('X-AUTH-TOKEN', token)
         .then(res => {
           expect(res.type).to.eql('application/json')
         })
     })
     it('should return a 200 status', () => {
-      return chai.request(app).get('/customers')
+      return chai.request(app).get('/customers').set('X-AUTH-TOKEN', token)
         .then(res => {
           expect(res.status).to.eql(200)
         })
@@ -50,7 +55,7 @@ describe('CustomersRouter', () => {
 
   describe('GET request on /customers/:id', () => {
     it('should be a customer object', () => {
-      return chai.request(app).get('/customers/1')
+      return chai.request(app).get('/customers/1').set('X-AUTH-TOKEN', token)
         .then(res => {
           const customer = JSON.parse(res.text).customer
           expect(customer).to.be.an('object')
@@ -58,10 +63,11 @@ describe('CustomersRouter', () => {
         })
     })
     it('should return a 404 code', () => {
-      return chai.request(app).get('/customers/2').catch(err => {
-        expect(err.status).to.eql(404)
-        expect(err.message).to.eql('Not Found')
-      })
+      return chai.request(app).get('/customers/2').set('X-AUTH-TOKEN', token)
+        .catch(err => {
+          expect(err.status).to.eql(404)
+          expect(err.message).to.eql('Not Found')
+        })
     })
   })
 
@@ -76,8 +82,7 @@ describe('CustomersRouter', () => {
         id: 5
       }
       return chai.request(app)
-        .post('/customers')
-        .send(obj)
+        .post('/customers').set('X-AUTH-TOKEN', token).send(obj)
         .then(res => {
           const customer = JSON.parse(res.text).customer
           expect(customer).to.be.an('object')
@@ -95,9 +100,7 @@ describe('CustomersRouter', () => {
       status: 'DONE'
     }
     it('should send a 200 status', () => {
-      return chai.request(app)
-        .put('/customers/1')
-        .send(obj)
+      return chai.request(app).put('/customers/1').send(obj).set('X-AUTH-TOKEN', token)
         .then(res => {
           expect(res.status).to.be.eql(200)
           CustomerList.findById(1).then(customer => {
@@ -106,7 +109,7 @@ describe('CustomersRouter', () => {
         })
     })
     it('should return a 404 code', () => {
-      return chai.request(app).put('/customers/2')
+      return chai.request(app).put('/customers/2').set('X-AUTH-TOKEN', token)
         .send(obj)
         .catch(err => {
           expect(err.status).to.eql(404)
@@ -118,7 +121,7 @@ describe('CustomersRouter', () => {
   describe('DELETE request on /customers/:id', () => {
     it('should send a 200 status', () => {
       return chai.request(app)
-        .delete('/customers/1')
+        .delete('/customers/1').set('X-AUTH-TOKEN', token)
         .then(res => {
           expect(res.status).to.be.eql(200)
           CustomerList.findById(1).then(customer => {
@@ -127,7 +130,7 @@ describe('CustomersRouter', () => {
         })
     })
     it('should return a 404 code', () => {
-      return chai.request(app).delete('/customers/2')
+      return chai.request(app).delete('/customers/2').set('X-AUTH-TOKEN', token)
         .catch(err => {
           expect(err.status).to.eql(404)
           expect(err.message).to.eql('Not Found')
