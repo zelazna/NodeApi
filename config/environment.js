@@ -6,15 +6,13 @@ const environment = process.env.NODE_ENV || 'DEVELOPMENT'
 
 require(`./environments/${environment.toLowerCase()}`)
 
-const match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-const database = new Sequelize(match[5], match[1], match[2], {
-  dialect: 'postgres',
-  protocol: 'postgres',
-  port: match[4],
-  host: match[3],
-  logging: false,
+const ssl = (process.env.DATABASE_SSL === 'true')
+
+const database = new Sequelize(process.env.DATABASE_URL, {
+  dialect: process.env.DATABASE_DIALECT,
+  protocol: process.env.DATABASE_DIALECT,
   dialectOptions: {
-    ssl: true
+    ssl: ssl
   }
 })
 
