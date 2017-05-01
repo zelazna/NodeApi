@@ -4,6 +4,7 @@ services:
   - redis
 before_script:
   - psql -c 'create database customers_test;' -U postgres
+  - psql -c "CREATE USER foo WITH PASSWORD 'root';" -U postgres
 sudo: false
 env:
   - CXX=g++-4.8
