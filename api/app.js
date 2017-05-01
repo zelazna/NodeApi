@@ -2,11 +2,10 @@ const express = require('express')
 // const logger = require('morgan')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
+const cors = require('cors')
 
 const routes = require('./routes')
-const middlewares = require('./middlewares')
 
-const { cors, errorhandler } = middlewares
 const { customersRouter, loginRouter, defaultRouter } = routes
 
 class App {
@@ -20,7 +19,7 @@ class App {
     // this.express.use(logger('dev'))
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: false }))
-    this.express.use(cors, errorhandler, helmet())
+    this.express.use(helmet(), cors())
   }
 
   routes () {
