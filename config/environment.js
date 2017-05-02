@@ -11,6 +11,7 @@ const ssl = (process.env.DATABASE_SSL === 'true')
 const database = new Sequelize(process.env.DATABASE_URL, {
   dialect: process.env.DATABASE_DIALECT,
   protocol: process.env.DATABASE_DIALECT,
+  logging: false,
   dialectOptions: {
     ssl: ssl
   }
