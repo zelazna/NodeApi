@@ -30,6 +30,7 @@
     "install": "^0.8.9",
     "minimist": "^1.2.0",
     "morgan": "^1.8.1",
+    "newrelic": "^1.38.2",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "redis": "^2.7.1",
