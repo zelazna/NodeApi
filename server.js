@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
 /**
+ * New Relic Agent
+ */
+
+require('newrelic')
+
+/**
  * Module dependencies.
  */
 
