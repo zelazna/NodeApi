@@ -16,3 +16,8 @@ addons:
     - gcc-4.8
     - g++-4.8
 
+install:
+  - npm install -g codecov
+script:
+  - NODE_ENV=TEST nyc --reporter=lcovonly ./node_modules/.bin/mocha --recursive
+  - codecov

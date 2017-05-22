@@ -16,7 +16,7 @@
     "dev": "NODE_ENV=DEVELOPMENT nodemon server.js",
     "test": "NODE_ENV=TEST nyc ./node_modules/.bin/mocha --recursive",
     "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive",
-    "report": "nyc report"
+    "report": "NODE_ENV=TEST nyc --reporter=lcovonly ./node_modules/.bin/mocha --recursive && codecov -t 8fd7d31e-a2de-4857-9c6b-f9d777390815"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
