@@ -1,4 +1,4 @@
-class HTTPClient {
+class HttpClient {
   constructor (baseUrl, http) {
     this.baseUrl = baseUrl
     this.http = http
@@ -26,4 +26,4 @@ class HTTPClient {
   }
 }
 
-module.exports = HTTPClient
+module.exports = HttpClient

@@ -2,7 +2,7 @@ const chaiHttp = require('chai-http')
 const chai = require('chai')
 
 const db = require('../../../db/collections')
-const Users = db.Users
+const users = db.users
 const app = require('../../../api/app')
 const Encryptor = require('../../../db/encryptor')
 const User = require('../../../models/user')
@@ -12,13 +12,13 @@ const encryptor = new Encryptor()
 
 describe('LoginRouter', () => {
   before(() => {
-    return Users.sync({ force: true })
+    return users.sync({ force: true })
   })
 
   beforeEach(() => {
     return encryptor.encrypt('root')
       .then(hash => {
-        Users.create(
+        users.create(
           new User({
             login: 'root',
             passwordHash: hash
@@ -27,11 +27,11 @@ describe('LoginRouter', () => {
   })
 
   afterEach(() => {
-    return Users.truncate()
+    return users.truncate()
   })
 
   after(() => {
-    return Users.drop()
+    return users.drop()
   })
 
   describe('GET request on /login', () => {

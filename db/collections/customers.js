@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const CustomerList = sequelize.define('CustomerList',
+  const customers = sequelize.define('customers',
     {
       firstName: { type: DataTypes.STRING, allowNull: false },
       lastName: { type: DataTypes.STRING, allowNull: false },
@@ -8,5 +8,5 @@ module.exports = (sequelize, DataTypes) => {
       status: { type: DataTypes.STRING, allowNull: false, defaultValue: 'PENDING' }
     })
 
-  return CustomerList
+  return customers
 }

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const Users = require('../../db/collections').Users
+const users = require('../../db/collections').users
 const User = require('../../models/user')
 const Encryptor = require('../../db/encryptor')
 const RedisTokenRepository = require('../../db/redisTokenRepository')
@@ -20,7 +20,7 @@ class LoginRouter {
     }
     const [login, password] = encryptor.getCredentials(req.headers.authorization)
     let user
-    Users.findOne({ where: { login } })
+    users.findOne({ where: { login } })
       .then(data => {
         user = new User(data)
         return encryptor.compare(password, user.passwordHash)

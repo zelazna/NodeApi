@@ -2,9 +2,9 @@
 const colors = require('colors')
 const argv = require('minimist')(process.argv.slice(2))
 
-const User = require('./models/user')
-const Users = require('./db/collections').Users
-const Encryptor = require('./db/encryptor')
+const User = require('../models/user')
+const users = require('../db/collections').users
+const Encryptor = require('../db/encryptor')
 
 const encryptor = new Encryptor()
 const [userName, password] = argv['_']
@@ -21,12 +21,12 @@ colors.setTheme({
 
 if (save) {
   encryptor.encrypt(password)
-    .then(function (hash) {
+    .then(hash => {
       const user = new User({
         login: userName,
         passwordHash: hash
       })
-      Users.create(user)
+      users.create(user)
         .then(result => {
           Object.keys(user).forEach((index, key) => {
             console.log(`${index.info} : ${result[index].data}`)
