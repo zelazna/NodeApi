@@ -5,6 +5,9 @@ const User = require('../../models/user')
 const Encryptor = require('../../db/encryptor')
 const RedisTokenRepository = require('../../db/redisTokenRepository')
 
+const encryptor = new Encryptor()
+const redis = new RedisTokenRepository()
+
 class LoginRouter {
   constructor () {
     this.router = express.Router()
@@ -12,14 +15,11 @@ class LoginRouter {
   }
 
   loginUser (req, res, next) {
-    // @TODO FIND A WAY TO REFRACTOR
-    const encryptor = new Encryptor()
-    const redis = new RedisTokenRepository()
+    let user
     if (!req.headers.authorization) {
       return res.status(403).send({ message: 'no authorization' })
     }
     const [login, password] = encryptor.getCredentials(req.headers.authorization)
-    let user
     users.findOne({ where: { login } })
       .then(data => {
         user = new User(data)
@@ -35,8 +35,23 @@ class LoginRouter {
       .catch(() => res.status(403).send({ message: 'User not found' }))
   }
 
+  getSession (req, res, next) {
+    const token = req.headers['x-auth-token'] || ''
+    redis.getToken(token)
+    .then(data => {
+      if (data) {
+        const user = new User({id: data})
+        res.send({ token: redis.setToken(user) })
+      } else {
+        res.status(403).send({ message: 'not logged in' })
+      }
+    })
+    .catch(err => next(err))
+  }
+
   init () {
     this.router.get('/', this.loginUser)
+    this.router.get('/session', this.getSession)
   }
 }
 

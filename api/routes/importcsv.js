@@ -37,21 +37,21 @@ class CsvRouter {
   }
 
   uploadCsv (req, res) {
-    let file = req.file.filename
-    this.importCsv(file)
-  }
-
-  importCsv (inputFile) {
+    let file = req.file.path
     const parser = parse({ columns: true, skip_empty_lines: true }, (err, data) => {
-      if (err) console.log(err)
-      async.eachSeries(data, function (line, callback) {
+      if (err) {
+        console.log(err)
+        return res.status(500).send('something goes wrong')
+      }
+      async.eachSeries(data, (line, callback) => {
         customers.create(line).then(() => {
           callback()
         })
       })
+      res.send({'message': `upload succeded, ${data.length} customers imported`})
     })
 
-    fs.createReadStream(inputFile).pipe(parser)
+    fs.createReadStream(file).pipe(parser)
   }
 
   init () {
