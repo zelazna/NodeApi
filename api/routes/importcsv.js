@@ -5,7 +5,7 @@ const async = require('async')
 
 const customers = require('../../db/collections').customers
 const auth = require('../middlewares').auth
-const upload = require('../../services/upload')
+const upload = require('../../services').upload
 
 class CsvRouter {
   constructor () {
