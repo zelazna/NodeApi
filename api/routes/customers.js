@@ -24,8 +24,6 @@ class CustomersRouter {
           customers,
           status: res.status
         })
-    }, err => {
-      next(err)
     })
   }
 
@@ -57,8 +55,6 @@ class CustomersRouter {
             customer,
             status: res.status
           })
-      }, err => {
-        next(err)
       })
   }
 
@@ -69,8 +65,6 @@ class CustomersRouter {
     customers.update(req.body, options)
       .then(result => {
         res.sendStatus(200)
-      }, err => {
-        next(err)
       })
   }
 

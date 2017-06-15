@@ -46,7 +46,6 @@ class LoginRouter {
         res.status(403).send({ message: 'not logged in' })
       }
     })
-    .catch(err => next(err))
   }
 
   init () {

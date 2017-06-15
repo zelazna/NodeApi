@@ -51,5 +51,7 @@ db.sqlite
 # nvm
 !.nvmrc
 
-*.csv
+uploads/*.csv
+
+
 
