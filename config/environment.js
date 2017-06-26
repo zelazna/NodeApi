@@ -17,7 +17,10 @@ const database = new Sequelize(process.env.DATABASE_URL, {
   }
 })
 
-const redisClient = redis.createClient({ url: process.env.REDIS_URL }).on('error', err => console.log('Error ' + err))
+const redisClient = redis
+  .createClient({ url: process.env.REDIS_URL })
+  .on('error', err => console.log('Error ' + err))
+  
 bluebird.promisifyAll(redis.RedisClient.prototype)
 bluebird.promisifyAll(redis.Multi.prototype)
 

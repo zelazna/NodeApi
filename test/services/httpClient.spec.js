@@ -1,4 +1,4 @@
-const HttpClient = require('../../services/HTTPClient')
+const HttpClient = require('../../services/httpClient')
 const expect = require('chai').expect
 const sinon = require('sinon')
 let client
