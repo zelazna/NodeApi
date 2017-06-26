@@ -22,10 +22,16 @@ const cleanFolder = folderPath => {
   fs.readdir(folderPath, (err, files) => {
     if (err) console.log(err)
     files.forEach(file => {
-      fs.unlink(`${folderPath}/${file}`, err => {
-        if (err) { console.log(err) }
-      })
+      if (file.slice(0, 1) != '.') {
+        deleteFile(folderPath, file)
+      }
     })
+  })
+}
+
+const deleteFile = (folderPath, file) => {
+  return fs.unlink(`${folderPath}/${file}`, err => {
+    if (err) { console.log(err) }
   })
 }
 
