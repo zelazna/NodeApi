@@ -6,7 +6,7 @@ const db = require('../../../db/collections')
 const RedisTokenRepository = require('../../../db/redisTokenRepository')
 
 const repository = new RedisTokenRepository()
-const CustomerList = db.CustomerList
+const customers = db.customers
 
 chai.use(chaiHttp)
 const expect = chai.expect
@@ -14,7 +14,7 @@ let token
 
 describe('CustomersRouter', () => {
   before(() => {
-    return CustomerList.sync({ force: true })
+    return customers.sync({ force: true })
   })
 
   beforeEach(() => {
@@ -27,15 +27,15 @@ describe('CustomersRouter', () => {
       nationalite: 'de',
       status: 'DONE'
     }
-    return CustomerList.create(testObject)
+    return customers.create(testObject)
   })
 
   afterEach(() => {
-    return CustomerList.truncate()
+    return customers.truncate()
   })
 
   after(() => {
-    return CustomerList.drop()
+    return customers.drop()
   })
 
   describe('GET request on /customers', () => {
@@ -103,7 +103,7 @@ describe('CustomersRouter', () => {
       return chai.request(app).put('/customers/1').send(obj).set('X-AUTH-TOKEN', token)
         .then(res => {
           expect(res.status).to.be.eql(200)
-          CustomerList.findById(1).then(customer => {
+          customers.findById(1).then(customer => {
             expect(customer.dataValues.firstName).to.be.eql('constantinUpdate')
           })
         })
@@ -124,7 +124,7 @@ describe('CustomersRouter', () => {
         .delete('/customers/1').set('X-AUTH-TOKEN', token)
         .then(res => {
           expect(res.status).to.be.eql(200)
-          CustomerList.findById(1).then(customer => {
+          customers.findById(1).then(customer => {
             expect(customer).to.be.null
           })
         })
