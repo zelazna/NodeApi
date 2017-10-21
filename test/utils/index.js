@@ -10,12 +10,34 @@ const resourcePath = filePath => {
 }
 
 const loadJsonResource = filePath => {
-  const file = resourcePath(filePath)
-  const data = fs.readFileSync(file, 'utf8')
+  const data = fs.readFileSync(resourcePath(filePath), 'utf8')
   return JSON.parse(data)
+}
+
+const loadFile = filePath => {
+  return fs.readFileSync(resourcePath(filePath), 'utf8')
+}
+
+const cleanFolder = folderPath => {
+  fs.readdir(folderPath, (err, files) => {
+    if (err) console.log(err)
+    files.forEach(file => {
+      if (file.slice(0, 1) != '.') {
+        deleteFile(folderPath, file)
+      }
+    })
+  })
+}
+
+const deleteFile = (folderPath, file) => {
+  return fs.unlink(`${folderPath}/${file}`, err => {
+    if (err) { console.log(err) }
+  })
 }
 
 module.exports = {
   loadJsonResource,
-  rootDirectory
+  rootDirectory,
+  loadFile,
+  cleanFolder
 }

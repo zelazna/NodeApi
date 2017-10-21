@@ -27,9 +27,10 @@ for run tests create a **.test.env**
 
 #### Authentification :
 
-| METHOD | URL          | ACTION                                        |
-|:-------|:------------:|:---------------------------------------------:|
-| GET    | /login       | get a token for perform requests on /customers |
+| METHOD | URL           | ACTION                                        |
+|:-------|:-------------:|:---------------------------------------------:|
+| GET    | /login        | get a token for perform requests on /customers|
+| GET    | /login/session| if you have a valid token in your front-app   |
 
 #### CRUD  Operation :
 
