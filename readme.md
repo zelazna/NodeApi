@@ -1,5 +1,7 @@
 # Node API & Customers List
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zelazna/NodeApi.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=develop)](https://travis-ci.org/zelazna/NodeApi)
 [![Code Climate](https://codeclimate.com/github/zelazna/NodeApi/badges/gpa.svg)](https://codeclimate.com/github/zelazna/NodeApi)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
