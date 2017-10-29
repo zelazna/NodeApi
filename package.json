@@ -14,14 +14,13 @@
   "scripts": {
     "start": "node server.js",
     "dev": "NODE_ENV=DEVELOPMENT nodemon server.js",
-    "test": "NODE_ENV=TEST nyc --reporter=lcovonly ./node_modules/.bin/mocha --recursive && codecov -t 8fd7d31e-a2de-4857-9c6b-f9d777390815",
+    "test": "NODE_ENV=TEST ./node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha $(find test -name '*.spec.js')",
     "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive"
   },
   "dependencies": {
     "bcrypt": "^1.0.2",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
-    "codecov": "^2.2.0",
     "colors": "^1.1.2",
     "cors": "^2.8.3",
     "dotenv": "^4.0.0",
@@ -40,18 +39,19 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
+    "async": "^2.5.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
     "eslint-plugin-chai-friendly": "^0.2.0",
     "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
-    "nyc": "^10.2.0",
     "sinon": "^2.1.0"
   }
 }

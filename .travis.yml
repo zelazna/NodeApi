@@ -5,9 +5,13 @@ services:
 before_script:
   - psql -c 'create database customers_test;' -U postgres
   - psql -c "CREATE USER foo WITH PASSWORD 'root';" -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 sudo: false
 env:
   - CXX=g++-4.8
+  - CC_TEST_REPORTER_ID=74008f2c8f1cfab5efb667295157eb9dbcd66703add24bfe75e43d4197743cc0
 addons:
   apt:
     sources:
@@ -15,3 +19,5 @@ addons:
     packages:
     - gcc-4.8
     - g++-4.8
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
