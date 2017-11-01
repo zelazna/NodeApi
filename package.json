@@ -30,12 +30,12 @@
     "install": "^0.8.9",
     "minimist": "^1.2.0",
     "morgan": "^1.8.1",
-    "pg": "^6.1.5",
+    "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "redis": "^2.7.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.0",
-    "sequelize": "^3.30.3",
+    "sequelize": "^4.20.3",
     "uuid": "^3.0.1"
   },
   "devDependencies": {

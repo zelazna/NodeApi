@@ -14,7 +14,8 @@ const database = new Sequelize(process.env.DATABASE_URL, {
   logging: false,
   dialectOptions: {
     ssl: ssl
-  }
+  },
+  operatorsAliases: false
 })
 
 const redisClient = redis.createClient({ url: process.env.REDIS_URL }).on('error', err => console.log('Error ' + err))
