@@ -10,7 +10,7 @@ describe('auth middleware', () => {
   })
   describe('request handler creation', () => {
     it('should return a function()', () => {
-      expect(auth).to.be.a.Function
+      expect(auth).to.be.a('function')
     })
 
     it('should accept 3 arguments', () => {

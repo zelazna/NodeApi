@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/zelazna/NodeApi.svg?branch=develop)](https://travis-ci.org/zelazna/NodeApi)
 [![Code Climate](https://codeclimate.com/github/zelazna/NodeApi/badges/gpa.svg)](https://codeclimate.com/github/zelazna/NodeApi)
+[![Test Coverage](https://codeclimate.com/github/zelazna/NodeApi/badges/coverage.svg)](https://codeclimate.com/github/zelazna/NodeApi/coverage)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Intro
