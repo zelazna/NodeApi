@@ -50,7 +50,7 @@ describe('LoginRouter', () => {
         })
     })
     it('should return a 403 status', () => {
-      return chai.request(app).get('/login').auth('root', 'roottt')
+      return chai.request(app).get('/login')
         .catch(err => {
           expect(err).to.have.status(403)
         })

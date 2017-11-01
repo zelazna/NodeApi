@@ -4,13 +4,13 @@ const Customers = require('../../db/collections').CustomerList
 const auth = require('../middlewares').auth
 
 class CustomersRouter {
-  constructor () {
+  constructor() {
     this.router = express.Router()
     this.middleware()
     this.init()
   }
 
-  getAll (req, res, next) {
+  getAll(req, res, next) {
     let options = {
       order: [['createdAt', 'DESC']],
       limit: req.query.limit || process.env.QUERY_LIMIT
@@ -24,12 +24,10 @@ class CustomersRouter {
           customers,
           status: res.status
         })
-    }, err => {
-      next(err)
     })
   }
 
-  getOne (req, res, next) {
+  getOne(req, res, next) {
     Customers.findById(req.params.id)
       .then(result => {
         if (result) {
@@ -49,7 +47,7 @@ class CustomersRouter {
       })
   }
 
-  createOne (req, res, next) {
+  createOne(req, res, next) {
     Customers.create(req.body)
       .then(customer => {
         res.status(201)
@@ -57,24 +55,20 @@ class CustomersRouter {
             customer,
             status: res.status
           })
-      }, err => {
-        next(err)
       })
   }
 
-  updateOne (req, res, next) {
+  updateOne(req, res, next) {
     let options = {
       where: { id: req.params.id }
     }
     Customers.update(req.body, options)
       .then(result => {
         res.sendStatus(200)
-      }, err => {
-        next(err)
       })
   }
 
-  deleteOne (req, res, next) {
+  deleteOne(req, res, next) {
     Customers.findById(req.params.id)
       .then(customer => {
         if (customer) {
@@ -90,11 +84,11 @@ class CustomersRouter {
       })
   }
 
-  middleware () {
+  middleware() {
     this.router.use(auth)
   }
 
-  init () {
+  init() {
     this.router.get('/', this.getAll)
     this.router.get('/:id', this.getOne)
     this.router.post('/', this.createOne)

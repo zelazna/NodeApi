@@ -11,6 +11,7 @@ module.exports = {
   },
   "rules": {
     "no-unused-expressions": 0,
-    "chai-friendly/no-unused-expressions": 2
+    "chai-friendly/no-unused-expressions": 2,
+    "space-before-function-paren": ["error", "never"]
   }
 };

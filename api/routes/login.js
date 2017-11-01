@@ -6,12 +6,12 @@ const Encryptor = require('../../db/encryptor')
 const RedisTokenRepository = require('../../db/redisTokenRepository')
 
 class LoginRouter {
-  constructor () {
+  constructor() {
     this.router = express.Router()
     this.init()
   }
 
-  loginUser (req, res, next) {
+  loginUser(req, res, next) {
     // @TODO FIND A WAY TO REFRACTOR
     const encryptor = new Encryptor()
     const redis = new RedisTokenRepository()
@@ -35,7 +35,7 @@ class LoginRouter {
       .catch(() => res.status(403).send({ message: 'User not found' }))
   }
 
-  init () {
+  init() {
     this.router.get('/', this.loginUser)
   }
 }
