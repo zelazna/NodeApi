@@ -7,7 +7,7 @@
 
 ## Intro
 
-TODO
+WIP
 
 ### 1. `Dependencies et Requirements`
 

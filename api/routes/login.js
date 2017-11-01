@@ -12,7 +12,8 @@ class LoginRouter {
   }
 
   loginUser(req, res, next) {
-    const encryptor = new Encryptor(), redis = new RedisTokenRepository()
+    const encryptor = new Encryptor()
+    const redis = new RedisTokenRepository()
     let user
 
     if (!req.headers.authorization) {
