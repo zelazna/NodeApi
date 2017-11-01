@@ -1,15 +1,15 @@
 class ResponseMock {
-  constructor () {
+  constructor() {
     this.calledWith = []
     this.sendedResponse = {}
   }
-  header () {
+  header() {
     this.calledWith.push(...arguments)
   }
-  send (obj) {
+  send(obj) {
     this.sendedResponse = obj
   }
-  status (code) {
+  status(code) {
     this.status = code
     return this
   }

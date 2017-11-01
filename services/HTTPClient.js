@@ -1,21 +1,21 @@
 class HTTPClient {
-  constructor (baseUrl, http) {
+  constructor(baseUrl, http) {
     this.baseUrl = baseUrl
     this.http = http
   }
-  get (path) {
+  get(path) {
     return this._sendRequest('GET', path)
   }
-  post (path, body) {
+  post(path, body) {
     return this._sendRequest('POST', path, body)
   }
-  delete (path, body) {
+  delete(path, body) {
     return this._sendRequest('DELETE', path, body)
   }
-  patch (path, body) {
+  patch(path, body) {
     return this._sendRequest('PATCH', path, body)
   }
-  _sendRequest (method, path, body) {
+  _sendRequest(method, path, body) {
     let options = {
       uri: this.baseUrl + path,
       method: method,

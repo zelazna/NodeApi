@@ -9,20 +9,20 @@ const routes = require('./routes')
 const { customersRouter, loginRouter, defaultRouter } = routes
 
 class App {
-  constructor () {
+  constructor() {
     this.express = express()
     this.middleware()
     this.routes()
   }
 
-  middleware () {
+  middleware() {
     // this.express.use(logger('dev'))
     this.express.use(bodyParser.json())
     this.express.use(bodyParser.urlencoded({ extended: false }))
     this.express.use(helmet(), cors())
   }
 
-  routes () {
+  routes() {
     this.express.use('/', defaultRouter)
     this.express.use('/customers', customersRouter)
     this.express.use('/login', loginRouter)

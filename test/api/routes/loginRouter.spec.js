@@ -53,7 +53,7 @@ describe('LoginRouter', () => {
       return chai.request(app).get('/login')
         .catch(err => {
           expect(err).to.have.status(403)
-          expect(err.message).to.equal("Forbidden")
+          expect(err.message).to.equal('Forbidden')
         })
     })
   })

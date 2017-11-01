@@ -21,7 +21,7 @@ colors.setTheme({
 
 if (save) {
   encryptor.encrypt(password)
-    .then(function (hash) {
+    .then(hash => {
       const user = new User({
         login: userName,
         passwordHash: hash

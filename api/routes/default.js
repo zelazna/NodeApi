@@ -1,16 +1,16 @@
 const express = require('express')
 
 class DefaultRouter {
-  constructor () {
+  constructor() {
     this.router = express.Router()
     this.init()
   }
 
-  index (req, res, next) {
+  index(req, res, next) {
     res.send({message: 'Welcome'})
   }
 
-  init () {
+  init() {
     this.router.get('/', this.index)
   }
 }

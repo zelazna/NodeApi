@@ -2,13 +2,13 @@ const uuidV4 = require('uuid/v4')
 const TokenRepository = require('./tokenRepository')
 
 class RedisTokenRepository extends TokenRepository {
-  setToken (user) {
+  setToken(user) {
     const token = this._generateSessionId()
     super.setToken(token, user.id)
     return token
   }
 
-  _generateSessionId () {
+  _generateSessionId() {
     return uuidV4()
   }
 }

@@ -8,7 +8,7 @@ const http = require('http')
  * @param  {string} email  the email of the customer.
  */
 
-const MailchimpHelper = function addSuscriber (firstName, lastName, language, email) {
+const MailchimpHelper = function addSuscriber(firstName, lastName, language, email) {
   const body = JSON.stringify({
     email_address: email,
     status: 'subscribed',

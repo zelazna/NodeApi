@@ -15,7 +15,8 @@
     "start": "node server.js",
     "dev": "NODE_ENV=DEVELOPMENT nodemon server.js",
     "test": "NODE_ENV=TEST ./node_modules/istanbul/lib/cli.js cover node_modules/.bin/_mocha $(find test -name '*.spec.js')",
-    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive"
+    "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive",
+    "fix": "./node_modules/eslint/bin/eslint.js --fix ."
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
