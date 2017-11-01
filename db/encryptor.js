@@ -1,5 +1,5 @@
 const Buffer = require('safe-buffer').Buffer
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 class Encryptor {
   constructor () {

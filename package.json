@@ -18,7 +18,7 @@
     "debug": "NODE_ENV=TEST ./node_modules/.bin/mocha --inspect --debug-brk --recursive"
   },
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.0",
     "body-parser": "~1.17.1",
     "colors": "^1.1.2",
@@ -29,7 +29,6 @@
     "install": "^0.8.9",
     "minimist": "^1.2.0",
     "morgan": "^1.8.1",
-    "newrelic": "^1.38.2",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "redis": "^2.7.1",

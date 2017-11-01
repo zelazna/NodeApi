@@ -1,0 +1,47 @@
+version: '2.1'
+
+services:
+
+  db:
+    container_name: db
+    build: ./db
+    ports:
+        - 5435:5432  # expose ports - HOST:CONTAINER
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: exit 0
+
+  redis:
+    container_name: redis
+    image: redis:4.0.0
+    ports:
+      - 6375:6379
+    healthcheck:
+      test: exit 0
+
+  node:
+    container_name: node
+    build: ./
+    volumes:
+      - '.:/usr/src/app'
+    ports:
+      - 3001:3000 # expose ports - HOST:CONTAINER
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/customers
+      - REDIS_URL=redis://@redis:6379/0
+      - QUERY_LIMIT=100
+      - DATABASE_DIALECT=postgres
+      - DATABASE_SSL=false
+      - MAILCHIMP_LIST_ID=
+      - MAILCHIMP_APIKEY=
+      - MAILCHIMP_HOST=
+      - ENVIROMNENT=DEVELOPMENT
+      - SALT_ROUNDS=2
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+      - redis
