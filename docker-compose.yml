@@ -27,7 +27,7 @@ services:
     volumes:
       - '.:/usr/src/app'
     ports:
-      - 3001:3000 # expose ports - HOST:CONTAINER
+      - 8099:8080 # expose ports - HOST:CONTAINER
     environment:
       - DATABASE_URL=postgres://postgres:postgres@db:5432/customers
       - REDIS_URL=redis://@redis:6379/0

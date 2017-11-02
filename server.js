@@ -38,7 +38,7 @@ const normalizePort = val => {
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '3000')
+const port = normalizePort(process.env.PORT || '8080')
 app.set('port', port)
 
 /**
@@ -49,7 +49,7 @@ collections.sequelize.sync().then(() => {
   /**
    * Listen on provided port, on all network interfaces.
    */
-  server.listen(port)
+  server.listen(8080, '0.0.0.0')
   server.on('error', onError)
   server.on('listening', onListening)
 })

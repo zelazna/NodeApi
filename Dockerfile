@@ -4,8 +4,7 @@ FROM node:8.6
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# add requirements (to leverage Docker cache)
-ADD ./package.json /usr/src/app/package.json
+COPY package.json package-lock.json ./
 
 # install requirements
 RUN npm install
@@ -13,5 +12,6 @@ RUN npm install
 # add app
 ADD . /usr/src/app
 
+EXPOSE 8080
 # run server
 CMD npm start
